@@ -15,6 +15,7 @@ import {
 
 import TransactionTableRow from './transaction-table-row'
 import { useDashboardPage } from './dashboard.hooks'
+import { Button } from '@/components/ui/button'
 
 export default function Transactions({ token }: { token: string }) {
   const { visibleTransactions, settings } = useDashboardPage({
@@ -23,14 +24,18 @@ export default function Transactions({ token }: { token: string }) {
 
   return (
     <Card>
-      <CardHeader className="p-4 flex flex-row items-baseline">
-        <CardTitle className="text-primary-blue text-lg">
-          Transactions
-        </CardTitle>
-        <CardDescription className="text-slate-500 ml-3 text-xs">
-          Total: {visibleTransactions.length}{' '}
-          {visibleTransactions.length > 1 ? 'transactions' : 'transaction'}
-        </CardDescription>
+      <CardHeader className="px-4 py-2 flex flex-row items-baseline justify-between">
+        <div className="flex flex-row items-baseline">
+          <CardTitle className="text-primary-blue text-lg">
+            Transactions
+          </CardTitle>
+          <CardDescription className="text-slate-500 ml-3 text-xs">
+            Total: {visibleTransactions.length}{' '}
+            {visibleTransactions.length > 1 ? 'transactions' : 'transaction'}
+          </CardDescription>
+        </div>
+
+        <Button>Create transaction</Button>
       </CardHeader>
 
       <Table>
