@@ -8,8 +8,8 @@ import { Card } from '@/components/ui/card'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
-import FilterByCategory from './filter-by-category'
-import FilterByAccount from './filter-by-account'
+import { FilterByCategory } from './filter-by-category'
+import { FilterByAccount } from './filter-by-account'
 import { useDashboardPage } from './dashboard.hooks'
 
 export default function TransactionsTableFilter({ token }: { token: string }) {

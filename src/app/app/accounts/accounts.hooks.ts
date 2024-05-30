@@ -37,7 +37,8 @@ export const useAccountsPage = ({ token }: { token: string }) => {
   if (accounts) {
     const initialValue = 0
     const sumWithInitial = accounts.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.accountBalance!,
+      (accumulator, currentValue) =>
+        accumulator + Number(currentValue.accountBalance!),
       initialValue,
     )
     balance = sumWithInitial
@@ -52,7 +53,6 @@ export const useAccountsPage = ({ token }: { token: string }) => {
 }
 
 export const useInputMask = () => {
-  // Máscara do valor opening_balance
   const handleInputMask = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\D/g, '')
 
@@ -72,7 +72,7 @@ export const useInputMask = () => {
 const accountsForm = z.object({
   bankName: z.string(),
   accountLabel: z.string().nullable(),
-  openingBalance: z.number().nullable(),
+  openingBalance: z.string().nullable(),
   accountBalance: z.string(),
   ownerId: z.string(),
   type: z.string(),

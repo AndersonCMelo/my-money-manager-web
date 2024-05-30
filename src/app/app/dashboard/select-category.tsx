@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-// import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
-
-// import { cn } from '@/lib/utils'
 
 import { CategoriesProps } from '@/types'
 
@@ -26,23 +23,42 @@ import { useDashboardPage } from './dashboard.hooks'
 
 type FilterByCategoryProps = {
   token: string
+  value?: string
+  error?: boolean
   onSelectCategory: (categoryId: string | null) => void
 }
 
-export function FilterByCategory({
+export function SelectCategory({
   token,
+  value,
+  error = false,
   onSelectCategory,
 }: FilterByCategoryProps) {
+  const { categories } = useDashboardPage({ token })
+
   const [open, setOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] =
     useState<CategoriesProps | null>(null)
 
-  const { categories } = useDashboardPage({ token })
+  useEffect(() => {
+    if (value) {
+      const category: CategoriesProps | undefined = categories.find(
+        (category) => category.id === value,
+      )
+
+      if (category) {
+        setSelectedCategory(category)
+      }
+    }
+  }, [categories, value])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-[200px] justify-between">
+        <Button
+          variant="outline"
+          className={`w-full justify-between ${error && 'border-primary-red'}`}
+        >
           {selectedCategory ? (
             <>{selectedCategory.category}</>
           ) : (
@@ -54,23 +70,12 @@ export function FilterByCategory({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="flex-1 w-full p-0" align="start">
         <Command>
           <CommandInput placeholder="Search category..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              <CommandItem
-                onSelect={() => {
-                  setSelectedCategory(null)
-                  onSelectCategory(null)
-                  setOpen(false)
-                }}
-                className="text-slate-400"
-              >
-                <Check className="opacity-0 mr-2 w-4 h-4" />
-                All categories
-              </CommandItem>
               {categories.map((category: CategoriesProps) => (
                 <CommandItem
                   key={category.id}

@@ -16,20 +16,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-// import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 
-// import { cn } from '@/lib/utils'
 import { AccountsProps } from '@/types'
 
 import { useDashboardPage } from './dashboard.hooks'
 
 type FilterByAccountProps = {
   token: string
+  error?: boolean
   onSelectAccount: (accountId: string | null) => void
 }
 
-export function FilterByAccount({
+export function SelectAccount({
   token,
+  error = false,
   onSelectAccount,
 }: FilterByAccountProps) {
   const [open, setOpen] = useState(false)
@@ -44,7 +44,10 @@ export function FilterByAccount({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-[200px] justify-between">
+        <Button
+          variant="outline"
+          className={`w-full justify-between ${error && 'border-primary-red'}`}
+        >
           {selectedAccount ? (
             <>{selectedAccount.accountLabel}</>
           ) : (
@@ -56,23 +59,12 @@ export function FilterByAccount({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="w-fit p-0" align="start">
         <Command>
           <CommandInput placeholder="Search account..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              <CommandItem
-                onSelect={() => {
-                  setSelectedAccount(null)
-                  onSelectAccount(null)
-                  setOpen(false)
-                }}
-                className="text-slate-400"
-              >
-                <Check className="opacity-0 mr-2 w-4 h-4" />
-                All accounts
-              </CommandItem>
               {accounts.map((account: AccountsProps) => (
                 <CommandItem
                   key={account.id}

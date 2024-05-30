@@ -1,16 +1,28 @@
+'use client'
+import { MoreHorizontal, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { TableCell, TableRow } from '@/components/ui/table'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 
 import { SettingsProps, TransactionsProps } from '@/types'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
+import { useTransactionsActions } from './dashboard.hooks'
+
 interface TransactionTableRowProps {
+  token: string
   transaction: TransactionsProps
   settings: SettingsProps
 }
 
-export default function TransactionTableRow({
+export function TransactionTableRow({
+  token,
   transaction,
   settings,
 }: TransactionTableRowProps) {
@@ -19,6 +31,8 @@ export default function TransactionTableRow({
     expense: 'text-primary-red',
     transfer: 'text-secondary-button',
   }
+
+  const { handleDeleteTransaction } = useTransactionsActions({ token })
 
   return (
     <TableRow>
@@ -48,7 +62,29 @@ export default function TransactionTableRow({
         {transaction.date.split('-').reverse().join('/')}
       </TableCell>
 
-      <TableCell className="text-right">...</TableCell>
+      <TableCell className="text-right">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="h-7 w-7 p-0 rounded-full hover:opacity-80"
+            >
+              <MoreHorizontal className="h-3 w-3" />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end">
+            <Button
+              variant="link"
+              className="text-primary-red"
+              onClick={() => handleDeleteTransaction(transaction.id)}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete
+            </Button>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </TableCell>
     </TableRow>
   )
 }

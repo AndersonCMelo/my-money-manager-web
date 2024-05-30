@@ -1,11 +1,15 @@
-import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMemo, ChangeEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
+import { toast } from 'sonner'
 
 import { getTransactions } from '@/services/api/get-transactions'
 import { getSettings } from '@/services/api/get-settings'
 import { getAccounts } from '@/services/api/get-accounts'
 import { getCategories } from '@/services/api/get-categories'
+import { createTransaction } from '@/services/api/create-transaction'
+import { deleteTransaction } from '@/services/api/delete-transaction'
 
 export const useDashboardPage = ({ token }: { token: string }) => {
   const searchParams = useSearchParams()
@@ -48,7 +52,8 @@ export const useDashboardPage = ({ token }: { token: string }) => {
   if (accounts) {
     const initialValue = 0
     const sumWithInitial = accounts.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.accountBalance!,
+      (accumulator, currentValue) =>
+        accumulator + Number(currentValue.accountBalance!),
       initialValue,
     )
     balance = sumWithInitial
@@ -93,7 +98,7 @@ export const useDashboardPage = ({ token }: { token: string }) => {
       const sumWithInitial = transactions.reduce(
         (accumulator, currentValue) =>
           accumulator +
-          (currentValue.type === 'income' ? currentValue.amount! : 0),
+          (currentValue.type === 'income' ? Number(currentValue.amount!) : 0),
         initialValue,
       )
 
@@ -109,7 +114,7 @@ export const useDashboardPage = ({ token }: { token: string }) => {
       const sumWithInitial = transactions.reduce(
         (accumulator, currentValue) =>
           accumulator +
-          (currentValue.type === 'expense' ? currentValue.amount! : 0),
+          (currentValue.type === 'expense' ? Number(currentValue.amount!) : 0),
         initialValue,
       )
 
@@ -123,7 +128,8 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     if (visibleTransactions) {
       const initialValue = 0
       const sumWithInitial = visibleTransactions.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.amount!,
+        (accumulator, currentValue) =>
+          accumulator + Number(currentValue.amount!),
         initialValue,
       )
 
@@ -143,5 +149,124 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     monthlyExpenses,
     visibleTransactions: visibleTransactions ?? [],
     categoryAmountInMonth,
+  }
+}
+
+export const useInputMask = () => {
+  const handleInputMask = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\D/g, '')
+
+    if (inputValue) {
+      const floatValue = parseFloat(inputValue) / 100
+      const floatValueFixed = floatValue.toFixed(2)
+
+      return floatValueFixed
+    } else {
+      return '0'
+    }
+  }
+
+  return { handleInputMask }
+}
+
+enum TransactionType {
+  Income = 'income',
+  Expense = 'expense',
+  Transfer = 'transfer',
+}
+
+const transactionsForm = z.object({
+  description: z.string().nullable(),
+  amount: z.string(),
+  estabilishment: z.string().nullable(),
+  type: z.enum([
+    TransactionType.Income,
+    TransactionType.Expense,
+    TransactionType.Transfer,
+  ]),
+  essencial: z.boolean().default(true),
+  date: z.string(),
+  categoryId: z.string(),
+  bankAccountId: z.string(),
+  destinationBankAccountId: z.string().nullable(),
+})
+
+export type TransactionsFormProps = z.infer<typeof transactionsForm>
+
+interface UseTransactionsActionsProps {
+  token: string
+}
+
+export const useTransactionsActions = ({
+  token,
+}: UseTransactionsActionsProps) => {
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: createTransactionFn } = useMutation({
+    mutationFn: createTransaction,
+    onSuccess() {
+      queryClient.invalidateQueries()
+    },
+  })
+
+  const { mutateAsync: deleteTransactionFn } = useMutation({
+    mutationFn: deleteTransaction,
+    onSuccess() {
+      queryClient.invalidateQueries()
+    },
+  })
+
+  async function handleCreateTransaction({
+    data,
+    type,
+  }: {
+    data: TransactionsFormProps
+    type: 'income' | 'transfer' | 'expense'
+  }) {
+    try {
+      await createTransactionFn({
+        body: {
+          description: data.description,
+          amount: Number(data.amount) * 100,
+          estabilishment: data.estabilishment,
+          type,
+          essencial: data.essencial,
+          date: data.date,
+          categoryId: data.categoryId,
+          bankAccountId: data.bankAccountId,
+          destinationBankAccountId: data.destinationBankAccountId ?? null,
+        },
+        token,
+      })
+
+      toast.success('Transaction created successfully')
+    } catch (error) {
+      // @ts-ignore
+      if (error.response?.data) {
+        // @ts-ignore
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
+  }
+
+  async function handleDeleteTransaction(id: string) {
+    try {
+      await deleteTransactionFn({ id, token })
+    } catch (error) {
+      // @ts-ignore
+      if (error.response?.data) {
+        // @ts-ignore
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
+  }
+
+  return {
+    handleCreateTransaction,
+    handleDeleteTransaction,
   }
 }
