@@ -117,6 +117,10 @@ export function TransactionsForm({
 
       if (response) {
         setValue('categoryId', response.category)
+
+        if (response.estabilishment) {
+          setValue('estabilishment', response.estabilishment)
+        }
       }
     }
   }

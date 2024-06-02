@@ -15,6 +15,8 @@ export const useCategoriesPage = ({ token }: { token: string }) => {
     staleTime: Infinity,
   })
 
+  console.log('categories', categories)
+
   return {
     categories: categories ?? [],
   }
