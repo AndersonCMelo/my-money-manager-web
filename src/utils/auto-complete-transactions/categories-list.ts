@@ -1,0 +1,106 @@
+export const categoriesList = {
+  Supermercado: {
+    id: '2c646d70-a10b-461d-9723-fed16445d74e',
+    keyWords: [
+      'feira',
+      'frutas',
+      'ovos',
+      'carnes',
+      'PINGO DOCE',
+      'CONTINENTE',
+      'MA MORAIS SOARES',
+      'FAHAD FARHAT',
+      'MOUSUMI RAHMAN',
+    ],
+  },
+  Restaurante: {
+    id: 'c624c0d9-e387-45f8-a2e4-676e6da292c4',
+    keyWords: ['LITTLE CEASARS', 'DRAGON CIPHER', 'DOCEL JOSE FALCO'],
+  },
+  Transporte: {
+    id: '58ed0e11-9f78-4e9e-b8c8-7629e0be35b0',
+    keyWords: [
+      'METRO',
+      'cartão',
+      'transporte',
+      'passe',
+      'metropolitano',
+      'navegante',
+      'UBER',
+      'ARROIOS',
+      'ALAMEDA',
+    ],
+  },
+  Arrendamento: {
+    id: '9a73a2f7-f64f-4fad-b1dd-6747c0701424',
+    keyWords: ['TRF P/ Mercedes Maria Santos Perdigao Ferreira'],
+  },
+  Comunicação: {
+    id: '5bf7f992-2612-4bf7-9a23-be03682dc0d8',
+    keyWords: ['internet', 'chip', 'celular', 'plano'],
+  },
+  Casa: {
+    id: '2dce7aff-cc9f-4f58-b48f-e7a4fd73f994',
+    keyWords: ['BAZAR ECONOMICO'],
+  },
+  Salário: {
+    id: '036bf598-eb96-498f-b7c1-ea89cbbc71dd',
+    keyWords: ['SEM IDADE', 'VENCIMENTO', 'Remuneracao'],
+  },
+  Serviços: {
+    id: '87bd3feb-695c-4178-988a-67b834e39f76',
+    keyWords: ['ORDEM FISIOTERAPEUTA'],
+  },
+  Farmácia: {
+    id: '8eef3a63-e0d1-468b-ab85-3cb009c29937',
+    keyWords: ['FARMACIA', 'CELEIRO'],
+  },
+  Bar: {
+    id: '79235866-91a8-4df1-ba1a-a545aac0a038',
+    keyWords: [],
+  },
+  Entretenimento: {
+    id: '9dde3700-94c1-4d7c-96fe-d85f6a126dbc',
+    keyWords: ['netflix', 'prime', 'pns', 'cinema', 'jogo', 'PLAYSTATION'],
+  },
+  Roupas: {
+    id: 'cee3854f-f09a-4548-b23a-913f1ce821de',
+    keyWords: [],
+  },
+  Transferência: {
+    id: 'd05eb0bb-64e3-4e1d-9d67-23e6e5333d56',
+    keyWords: ['TRF'],
+  },
+  Viagem: {
+    id: 'd019e0d4-42b1-42be-b975-3c3d7392a1b2',
+    keyWords: [],
+  },
+  Alojamento: {
+    id: '13c91502-b8cd-4fa7-9c7a-f1faf99ac831',
+    keyWords: [],
+  },
+  Outra: {
+    id: '364ac93b-1c9b-4420-bc60-a708a96ff08d',
+    keyWords: ['LEV ATM'],
+  },
+  Academia: {
+    id: '303d7478-911d-4031-bed4-7747df9a22dc',
+    keyWords: ['EASYPAY'],
+  },
+  Água: {
+    id: '048f82c2-4456-45af-9419-0a41cc935a88',
+    keyWords: ['EMPRESA PORTUGUESA'],
+  },
+  Energia: {
+    id: '8ead4357-89ed-4aec-96cc-6b58987830c1',
+    keyWords: [],
+  },
+  Impostos: {
+    id: 'f1bc2003-8599-4dc0-acba-f5d603e94b70',
+    keyWords: ['INSTITUTO GESTAO'],
+  },
+  Saúde: {
+    id: '716bfaa1-bd28-4a93-bfe4-033a87848c5c',
+    keyWords: [],
+  },
+}

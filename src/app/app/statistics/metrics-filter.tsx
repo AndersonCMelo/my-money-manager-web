@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { MonthSelector } from '@/components/month-selector'
 import { Card } from '@/components/ui/card'
 
-export default function MetricsFilter() {
+export function MetricsFilter() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

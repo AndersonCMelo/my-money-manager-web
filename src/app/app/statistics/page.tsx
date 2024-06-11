@@ -1,8 +1,10 @@
 import { getServerSession } from 'next-auth'
 import authOptions from '@/app/api/auth/[...nextauth]/options'
 
+import { MetricsFilter } from './metrics-filter'
 import { MonthlyPercentage } from './monthly-percentage'
-import MetricsFilter from './metrics-filter'
+import { AmountPerCategory } from './amount-per-category'
+import { AmountPerAccount } from './amount-per-account'
 
 export default async function Statistics() {
   const session = await getServerSession(authOptions)
@@ -15,8 +17,11 @@ export default async function Statistics() {
 
       <MetricsFilter />
 
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-4">
         <MonthlyPercentage token={session?.accessToken ?? ''} />
+
+        <AmountPerCategory token={session?.accessToken ?? ''} />
+        <AmountPerAccount token={session?.accessToken ?? ''} />
       </div>
     </div>
   )

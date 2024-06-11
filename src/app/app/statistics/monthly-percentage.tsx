@@ -101,8 +101,8 @@ export function MonthlyPercentage({ token }: { token: string }) {
           <h3 className="font-semibold text-lg mb-2 text-center">Percentage</h3>
 
           <div className="grid grid-cols-3">
-            {monthlyPercentage.map((item) => (
-              <div key={item.type} className="flex flex-col items-center">
+            {monthlyPercentage.map((item, index) => (
+              <div key={index} className="flex flex-col items-center">
                 <p
                   className="text-2xl font-semibold"
                   style={{
@@ -124,8 +124,8 @@ export function MonthlyPercentage({ token }: { token: string }) {
           <h3 className="font-semibold text-lg mb-2 text-center">Value</h3>
 
           <div className="grid grid-cols-3">
-            {monthlyPercentage.map((item) => (
-              <div key={item.type} className="flex flex-col items-center">
+            {monthlyPercentage.map((item, index) => (
+              <div key={index} className="flex flex-col items-center">
                 <p className="text-sm font-semibold">
                   {currencyFormatHelper({
                     currency: settings.currency,

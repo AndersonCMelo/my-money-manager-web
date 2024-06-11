@@ -11,6 +11,8 @@ import { getCategories } from '@/services/api/get-categories'
 import { createTransaction } from '@/services/api/create-transaction'
 import { deleteTransaction } from '@/services/api/delete-transaction'
 
+// import { categorizedTransactions } from '@/utils/complete-with-ia'
+
 export const useDashboardPage = ({ token }: { token: string }) => {
   const searchParams = useSearchParams()
 
@@ -138,6 +140,8 @@ export const useDashboardPage = ({ token }: { token: string }) => {
       return 0
     }
   }, [visibleTransactions])
+
+  // const test = categorizedTransactions
 
   return {
     transactions: transactions ?? [],

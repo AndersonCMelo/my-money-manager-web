@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, ReactNode, useState } from 'react'
+import { ChangeEvent, ReactNode, useState /* , useEffect */ } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Plus, Send } from 'lucide-react'
 import { FiArrowUpCircle, FiArrowDownCircle } from 'react-icons/fi'
@@ -30,6 +30,9 @@ import {
   useTransactionsActions,
 } from './dashboard.hooks'
 import { completeTransactionFormHelper } from '@/utils/complete-transaction-form-helper'
+
+// import objects from './transactions.json'
+// import { completeEstabilishment } from '@/utils/complete-estabilishment'
 
 interface ComponentProps {
   token: string
@@ -106,6 +109,13 @@ export function TransactionsForm({
         reset()
         setOpened(false)
       }
+      // REMOVER
+      /* if (currentIndex < objects.length - 1) {
+        setCurrentIndex(currentIndex + 1)
+      } else {
+        console.log('Todos os objetos foram processados.')
+        reset()
+      } */
     }
   }
 
@@ -136,6 +146,59 @@ export function TransactionsForm({
 
     setValue(field, value)
   }
+
+  // Estado para rastrear o índice atual
+  // const [currentIndex, setCurrentIndex] = useState(0)
+
+  /* useEffect(() => {
+    setTransactionType(
+      objects[currentIndex].tipo as 'income' | 'expense' | 'transfer',
+    )
+
+    const description = objects[currentIndex].descricao
+      .replace('COMPRA 5099 ', '')
+      .replace(' CONTACTLESS', '')
+
+    setValue('description', description)
+
+    const amountValue = (objects[currentIndex].valor! * 100).toString()
+
+    const floatValue = parseFloat(amountValue) / 100
+    const floatValueFixed = floatValue.toFixed(2)
+
+    setValue('amount', floatValueFixed)
+
+    if (objects[currentIndex].categoryId !== null) {
+      setValue('categoryId', objects[currentIndex].categoryId!)
+    }
+
+    setValue('estabilishment', completeEstabilishment(description))
+
+    setValue('date', objects[currentIndex].data_de_registro)
+
+    if (objects[currentIndex].tipo === 'transfer') {
+      setValue(
+        'destinationBankAccountId',
+        '1cac373c-a7c4-4af2-ad97-82cd3faaee5c',
+      )
+
+      setValue('estabilishment', '-')
+    } else {
+      setValue('bankAccountId', '1cac373c-a7c4-4af2-ad97-82cd3faaee5c')
+    }
+  }, [currentIndex, setValue]) */
+
+  /* const handleButtonClick = () => {
+    // Execute a ação desejada no objeto atual (por exemplo, exibir uma mensagem)
+    console.log('Ação executada no:', objects[currentIndex])
+
+    // Avance para o próximo objeto, mas não ultrapasse o último objeto
+    if (currentIndex < objects.length - 1) {
+      setCurrentIndex(currentIndex + 1)
+    } else {
+      console.log('Todos os objetos foram processados.')
+    }
+  } */
 
   return (
     <Dialog open={opened} onOpenChange={setOpened}>
@@ -276,10 +339,11 @@ export function TransactionsForm({
                     ? transaction.bankAccountId
                     : undefined
                 }
-                render={({ field: { name } }) => {
+                render={({ field: { name, value } }) => {
                   return (
                     <SelectAccount
                       token={token}
+                      value={value}
                       error={!!errors.bankAccountId}
                       onSelectAccount={(bankAccountId) => {
                         if (bankAccountId) {
@@ -306,10 +370,11 @@ export function TransactionsForm({
                       ? transaction.destinationBankAccountId
                       : undefined
                   }
-                  render={({ field: { name } }) => {
+                  render={({ field: { name, value } }) => {
                     return (
                       <SelectAccount
                         token={token}
+                        value={value}
                         error={!!errors.destinationBankAccountId}
                         onSelectAccount={(bankAccountId) => {
                           if (bankAccountId) {
@@ -372,6 +437,10 @@ export function TransactionsForm({
               </div>
             </div>
           </DialogFooter>
+
+          {/* <Button type="button" onClick={handleButtonClick}>
+            Pular transação
+          </Button> */}
         </form>
       </DialogContent>
     </Dialog>

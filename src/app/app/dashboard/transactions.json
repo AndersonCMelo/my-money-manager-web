@@ -1,0 +1,372 @@
+[
+  {
+    "data_de_lancamento": "2024-05-02",
+    "data_de_registro": "2024-05-02",
+    "descricao": "COMPRA 5099 JOAO REBELO UNIP LDALIS CONTACTLESS",
+    "valor": 3.00,
+    "saldo": 843.62,
+    "categoryId": "364ac93b-1c9b-4420-bc60-a708a96ff08d",
+    "categoryName": "Outra",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-02",
+    "data_de_registro": "2024-05-02",
+    "descricao": "COMPRA 5099 TELHEIRAS LISBOA CONTACTLESS",
+    "valor": 40.00,
+    "saldo": 803.62,
+    "categoryId": "58ed0e11-9f78-4e9e-b8c8-7629e0be35b0",
+    "categoryName": "Transporte",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA",
+    "valor": 75.52,
+    "saldo": 728.10,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 GELFINA LISBOA CONTACTLESS",
+    "valor": 14.18,
+    "saldo": 713.92,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 TALHO LUSO FRANCESUNLIS CONTACTLESS",
+    "valor": 7.65,
+    "saldo": 706.27,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 FAHAD FARHAT ABBASI LISBOA",
+    "valor": 3.94,
+    "saldo": 702.33,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 FARMACIA ALVES GRACALIS CONTACTLESS",
+    "valor": 15.60,
+    "saldo": 686.73,
+    "categoryId": "8eef3a63-e0d1-468b-ab85-3cb009c29937",
+    "categoryName": "Farmácia",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COMPRA 5099 PLURICOSMETICA SA SAO J CONTACTLESS",
+    "valor": 6.77,
+    "saldo": 679.96,
+    "categoryId": "364ac93b-1c9b-4420-bc60-a708a96ff08d",
+    "categoryName": "Outra",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "COM.MAN.CONTA PACOTE CLIENTE FREQUENTE 042024",
+    "valor": 5.00,
+    "saldo": 674.96,
+    "categoryId": "87bd3feb-695c-4178-988a-67b834e39f7",
+    "categoryName": "Serviços",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-06",
+    "data_de_registro": "2024-05-06",
+    "descricao": "IMPOSTO SELO ART 17.3.4",
+    "valor": 0.20,
+    "saldo": 674.76,
+    "categoryId": "87bd3feb-695c-4178-988a-67b834e39f7",
+    "categoryName": "Serviços",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-07",
+    "data_de_registro": "2024-05-07",
+    "descricao": "COMPRA 5099 Metropolitano de Lisboa CONTACTLESS",
+    "valor": 1.80,
+    "saldo": 672.96,
+    "categoryId": "58ed0e11-9f78-4e9e-b8c8-7629e0be35b0",
+    "categoryName": "Transporte",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-07",
+    "data_de_registro": "2024-05-07",
+    "descricao": "COMPRA 5099 UBER TRIP HELP.UBER.COMNL",
+    "valor": 9.93,
+    "saldo": 663.03,
+    "categoryId": "58ed0e11-9f78-4e9e-b8c8-7629e0be35b0",
+    "categoryName": "Transporte",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-07",
+    "data_de_registro": "2024-05-07",
+    "descricao": "COMPRA 5099 GRIM LDA CASCAIS",
+    "valor": 5.00,
+    "saldo": 658.03,
+    "categoryId": "364ac93b-1c9b-4420-bc60-a708a96ff08d",
+    "categoryName": "Outra",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-09",
+    "data_de_registro": "2024-05-09",
+    "descricao": "LEV ATM 5099 193 LISBOA CTT - R Morais",
+    "valor": 150.00,
+    "saldo": 508.03,
+    "categoryId": "364ac93b-1c9b-4420-bc60-a708a96ff08d",
+    "categoryName": "Outra",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-10",
+    "data_de_registro": "2024-05-10",
+    "descricao": "trf DE Remuneracao Maria Aparecida Souza",
+    "valor": 186.36,
+    "saldo": 694.39,
+    "categoryId": "036bf598-eb96-498f-b7c1-ea89cbbc71dd",
+    "categoryName": "Salário",
+    "tipo": "income"
+  },
+  {
+    "data_de_lancamento": "2024-05-13",
+    "data_de_registro": "2024-05-13",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA CONTACTLESS",
+    "valor": 82.31,
+    "saldo": 612.08,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-13",
+    "data_de_registro": "2024-05-13",
+    "descricao": "COMPRA 5099 GELFINA LISBOA CONTACTLESS",
+    "valor": 5.98,
+    "saldo": 606.10,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-13",
+    "data_de_registro": "2024-05-13",
+    "descricao": "COMPRA 5099 TALHO LUSO FRANCESESLIS CONTACTLESS",
+    "valor": 17.78,
+    "saldo": 588.32,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-13",
+    "data_de_registro": "2024-05-13",
+    "descricao": "COMPRA 5099 MA MORAIS SOARES LISBOA CONTACTLESS",
+    "valor": 7.20,
+    "saldo": 581.12,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-14",
+    "data_de_registro": "2024-05-14",
+    "descricao": "COMPRA 5099 SHEIN.COM DUBLIN 4 IE",
+    "valor": 18.38,
+    "saldo": 562.74,
+    "categoryId": "cee3854f-f09a-4548-b23a-913f1ce821de",
+    "categoryName": "Roupas",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-15",
+    "data_de_registro": "2024-05-15",
+    "descricao": "COMPRA 5099 FARMACIA ALVES GRACALISBOA",
+    "valor": 2.42,
+    "saldo": 560.32,
+    "categoryId": "8eef3a63-e0d1-468b-ab85-3cb009c29937",
+    "categoryName": "Farmácia",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-16",
+    "data_de_registro": "2024-05-16",
+    "descricao": "COMPRA 5099 ORDEM FISIOTERAPEUTA1250-091 LISOA",
+    "valor": 24.00,
+    "saldo": 536.32,
+    "categoryId": "87bd3feb-695c-4178-988a-67b834e39f76",
+    "categoryName": "Serviços",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-20",
+    "data_de_registro": "2024-05-20",
+    "descricao": "COMPRA 5099 GELFINA LISBOA CONTACTLESS",
+    "valor": 6.03,
+    "saldo": 530.29,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-20",
+    "data_de_registro": "2024-05-20",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA CONTACTLESS",
+    "valor": 54.90,
+    "saldo": 475.39,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-20",
+    "data_de_registro": "2024-05-20",
+    "descricao": "COMPRA 5099 FARMACIA ALVES GRACALIS CONTACTLESS",
+    "valor": 23.23,
+    "saldo": 452.16,
+    "categoryId": "8eef3a63-e0d1-468b-ab85-3cb009c29937",
+    "categoryName": "Farmácia",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-20",
+    "data_de_registro": "2024-05-20",
+    "descricao": "COMPRA 5099 TALHO LUSO FRANCESESLIS CONTACTLESS",
+    "valor": 8.13,
+    "saldo": 444.03,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-20",
+    "data_de_registro": "2024-05-20",
+    "descricao": "COMPRA 5099 PINGO DOCE CAIS DO SLIS CONTACTLESS",
+    "valor": 0.67,
+    "saldo": 443.36,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-22",
+    "data_de_registro": "2024-05-22",
+    "descricao": "TRF MB WAY P/ *****2536",
+    "valor": 5.00,
+    "saldo": 438.36,
+    "categoryId": "364ac93b-1c9b-4420-bc60-a708a96ff08d",
+    "categoryName": "Outra",
+    "tipo": "transfer"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA CONTACTLESS",
+    "valor": 60.21,
+    "saldo": 378.15,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 GELFINA LISBOA CONTACTLESS",
+    "valor": 5.82,
+    "saldo": 372.33,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA CONTACTLESS",
+    "valor": 9.02,
+    "saldo": 363.31,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 MOUSUMI RAHMAN LISBOA CONTACTLESS",
+    "valor": 12.48,
+    "saldo": 350.83,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 TALHO LUSO FRANCESESLIS CONTACTLESS",
+    "valor": 24.06,
+    "saldo": 326.77,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-27",
+    "data_de_registro": "2024-05-27",
+    "descricao": "COMPRA 5099 CELEIRO MORAIS SOARELIS CONTACTLESS",
+    "valor": 16.21,
+    "saldo": 310.56,
+    "categoryId": "8eef3a63-e0d1-468b-ab85-3cb009c29937",
+    "categoryName": "Farmácia",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-28",
+    "data_de_registro": "2024-05-28",
+    "descricao": "PAGAMENTO DE VENCIMENTO",
+    "valor": 1022.78,
+    "saldo": 1333.34,
+    "categoryId": "036bf598-eb96-498f-b7c1-ea89cbbc71dd",
+    "categoryName": "Salário",
+    "tipo": "income"
+  },
+  {
+    "data_de_lancamento": "2024-05-28",
+    "data_de_registro": "2024-05-28",
+    "descricao": "COMPRA 5099 UBER TRIP HELP.UBER.COMNL",
+    "valor": 8.93,
+    "saldo": 1324.41,
+    "categoryId": "58ed0e11-9f78-4e9e-b8c8-7629e0be35b0",
+    "categoryName": "Transporte",
+    "tipo": "expense"
+  },
+  {
+    "data_de_lancamento": "2024-05-30",
+    "data_de_registro": "2024-05-30",
+    "descricao": "COMPRA 5099 PINGO DOCE LISBOA CONTACTLESS",
+    "valor": 62.67,
+    "saldo": 1161.74,
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "tipo": "expense"
+  }
+]

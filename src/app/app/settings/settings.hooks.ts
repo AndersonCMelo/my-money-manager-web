@@ -50,8 +50,6 @@ export const useSettingsActions = ({ token }: UseSettingsActionsProps) => {
     id: string
     data: SettingsFormProps
   }) {
-    console.log('data', data)
-
     try {
       await updateSettingsFn({
         id,
