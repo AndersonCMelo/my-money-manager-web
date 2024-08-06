@@ -3,6 +3,7 @@ import authOptions from '@/app/api/auth/[...nextauth]/options'
 
 import AccountsCards from './accounts-cards'
 import BalanceCard from './balance-card'
+import { AccountsFilter } from './accounts-filter'
 
 export default async function Accounts() {
   const session = await getServerSession(authOptions)
@@ -16,6 +17,8 @@ export default async function Accounts() {
 
         <BalanceCard token={session?.accessToken ?? ''} />
       </div>
+
+      <AccountsFilter token={session?.accessToken ?? ''} />
 
       <AccountsCards token={session?.accessToken ?? ''} />
     </div>

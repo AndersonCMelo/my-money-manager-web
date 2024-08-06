@@ -1,4 +1,5 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 import { toast } from 'sonner'
@@ -11,6 +12,8 @@ import { updateAccount } from '@/services/api/update-account'
 import { deleteAccount } from '@/services/api/delete-account'
 
 export const useAccountsPage = ({ token }: { token: string }) => {
+  const searchParams = useSearchParams()
+
   const { data: settings } = useQuery({
     queryKey: ['settings'],
     queryFn: () => getSettings({ token }),
@@ -44,10 +47,31 @@ export const useAccountsPage = ({ token }: { token: string }) => {
     balance = sumWithInitial
   }
 
+  const selectedOwner = searchParams.get('owner') ?? null
+
+  const visibleAccounts = useMemo(() => {
+    if (accounts) {
+      if (selectedOwner) {
+        const filteredAccounts = accounts.filter(
+          (account) => account.ownerId === selectedOwner,
+        )
+
+        return filteredAccounts.sort(
+          (a, b) => b.accountBalance! - a.accountBalance!,
+        )
+      } else {
+        return accounts.sort((a, b) => b.accountBalance! - a.accountBalance!)
+      }
+    } else {
+      return []
+    }
+  }, [accounts, selectedOwner])
+
   return {
     settings: settings ?? settingsPlaceholder,
     accounts: accounts ?? [],
     users: users ?? [],
+    visibleAccounts: visibleAccounts ?? [],
     balance,
   }
 }

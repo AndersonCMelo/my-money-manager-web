@@ -9,6 +9,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 
+import ReactGA from 'react-ga4' // TODO: remove
+
 import { SettingsProps, TransactionsProps } from '@/types'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
@@ -77,7 +79,14 @@ export function TransactionTableRow({
             <Button
               variant="link"
               className="text-primary-red"
-              onClick={() => handleDeleteTransaction(transaction.id)}
+              onClick={() => {
+                ReactGA.event({
+                  category: 'TransactionTableRow',
+                  action: 'Click',
+                  label: 'test label',
+                })
+                handleDeleteTransaction(transaction.id)
+              }}
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete

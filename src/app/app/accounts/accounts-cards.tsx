@@ -29,7 +29,7 @@ import { useAccountsPage, useAccountsActions } from './accounts.hooks'
 import AccountsForm from './accounts-form'
 
 export default function AccountsCards({ token }: { token: string }) {
-  const { accounts, settings, users } = useAccountsPage({ token })
+  const { visibleAccounts, settings, users } = useAccountsPage({ token })
   const { handleDeleteAccount } = useAccountsActions({
     token,
   })
@@ -51,7 +51,7 @@ export default function AccountsCards({ token }: { token: string }) {
         </Dialog>
       </Card>
 
-      {accounts.map((account) => (
+      {visibleAccounts.map((account) => (
         <Card key={account.id}>
           <CardHeader className="px-5 pt-5 pb-4 flex items-baseline">
             <CardDescription className="text-slate-500 font-semibold mb-4">
