@@ -36,6 +36,14 @@ export function TransactionTableRow({
 
   const { handleDeleteTransaction } = useTransactionsActions({ token })
 
+  async function testGA4(id: string) {
+    ReactGA.event({
+      category: 'TransactionTableRow',
+      action: 'Click on test',
+      label: id,
+    })
+  }
+
   return (
     <TableRow>
       <TableCell variant="transactions">{transaction.description}</TableCell>
@@ -75,18 +83,15 @@ export function TransactionTableRow({
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="flex flex-col">
+            <Button variant="link" onClick={() => testGA4(transaction.id)}>
+              Test GA4
+            </Button>
+
             <Button
               variant="link"
               className="text-primary-red"
-              onClick={() => {
-                ReactGA.event({
-                  category: 'TransactionTableRow',
-                  action: 'Click',
-                  label: 'test label',
-                })
-                handleDeleteTransaction(transaction.id)
-              }}
+              onClick={() => handleDeleteTransaction(transaction.id)}
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete

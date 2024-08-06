@@ -1,6 +1,9 @@
 'use client'
 import { MoreHorizontal } from 'lucide-react'
 
+import { useEffect } from 'react' // TODO: remove
+import ReactGA from 'react-ga4' // TODO: remove
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -22,6 +25,15 @@ import { CreateCategoryForm } from './create-category-form'
 
 export function CategoriesCard({ token }: { token: string }) {
   const { categories } = useCategoriesPage({ token })
+
+  // TODO: remove
+  useEffect(() => {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/app/categories',
+      title: 'Categories Page',
+    })
+  }, [])
 
   return (
     <Card>
