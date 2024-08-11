@@ -9,8 +9,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 
-import ReactGA from 'react-ga4' // TODO: remove
-
 import { SettingsProps, TransactionsProps } from '@/types'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
@@ -35,14 +33,6 @@ export function TransactionTableRow({
   }
 
   const { handleDeleteTransaction } = useTransactionsActions({ token })
-
-  async function testGA4(id: string) {
-    ReactGA.event({
-      category: 'TransactionTableRow',
-      action: 'Click on test',
-      label: id,
-    })
-  }
 
   return (
     <TableRow>
@@ -84,10 +74,6 @@ export function TransactionTableRow({
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="flex flex-col">
-            <Button variant="link" onClick={() => testGA4(transaction.id)}>
-              Test GA4
-            </Button>
-
             <Button
               variant="link"
               className="text-primary-red"

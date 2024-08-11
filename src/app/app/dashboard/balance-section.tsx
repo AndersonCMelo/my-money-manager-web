@@ -1,9 +1,7 @@
 'use client'
-import { ElementType, useEffect } from 'react'
+import { ElementType } from 'react'
 import { FaWallet, FaBalanceScale } from 'react-icons/fa'
 import { HiTrendingUp, HiTrendingDown } from 'react-icons/hi'
-
-import ReactGA from 'react-ga4' // TODO: remove
 
 import {
   Card,
@@ -59,19 +57,6 @@ export default function BalanceSection({ token }: { token: string }) {
       background: 'bg-secondary-gray',
     },
   ]
-
-  const TRACKING_ID = 'G-LBT1G33BRE'
-
-  // TODO: remove
-  useEffect(() => {
-    ReactGA.initialize(TRACKING_ID)
-
-    ReactGA.send({
-      hitType: 'pageview',
-      page: '/app/dashboard',
-      title: 'Dashboard Page',
-    })
-  }, [])
 
   return (
     <div className="grid grid-cols-4 gap-5">
