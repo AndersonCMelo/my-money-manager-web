@@ -2,11 +2,11 @@
 import { BarChartBig } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
-import { useStatisticsPage } from './statistics.hooks'
-import { Badge } from '@/components/ui/badge'
+import { useStatisticsPage } from '../statistics/statistics.hooks'
 
 export function AmountPerCategory({ token }: { token: string }) {
   const { amountPerCategory, settings } = useStatisticsPage({

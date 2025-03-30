@@ -72,6 +72,7 @@ export interface GoalsProps {
   categoryId?: string
   categoryName?: string
   monthlyGoal: number
-  amountSpent: number
+  amountSpent: number | undefined
   percentage: number
+  isRecurrent?: boolean
 }

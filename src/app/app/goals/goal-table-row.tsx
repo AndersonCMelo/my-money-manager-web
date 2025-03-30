@@ -17,12 +17,15 @@ import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 // import { useTransactionsActions } from './goals.hooks'
 
 interface GoalTableRowProps {
-  token: string
+  token?: string
   goal: GoalsProps
   settings: SettingsProps
 }
 
-export function GoalTableRow({ token, goal, settings }: GoalTableRowProps) {
+export function GoalTableRow({
+  /* token,  */ goal,
+  settings,
+}: GoalTableRowProps) {
   /* const { handleDeleteTransaction } = useTransactionsActions({
     token,
   }) */
@@ -41,7 +44,7 @@ export function GoalTableRow({ token, goal, settings }: GoalTableRowProps) {
       <TableCell className={`text-center font-semibold`} variant="transactions">
         {currencyFormatHelper({
           currency: settings.currency,
-          value: goal.amountSpent,
+          value: goal.amountSpent!,
         })}
       </TableCell>
 

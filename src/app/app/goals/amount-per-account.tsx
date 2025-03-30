@@ -12,7 +12,7 @@ import {
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
-import { useStatisticsPage } from './statistics.hooks'
+import { useStatisticsPage } from '../statistics/statistics.hooks'
 
 export function AmountPerAccount({ token }: { token: string }) {
   const { amountPerAccount, settings } = useStatisticsPage({

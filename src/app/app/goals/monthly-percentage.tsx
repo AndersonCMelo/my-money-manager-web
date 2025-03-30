@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
-import { useStatisticsPage } from './statistics.hooks'
+import { useStatisticsPage } from '../statistics/statistics.hooks'
 
 export function MonthlyPercentage({ token }: { token: string }) {
   const { monthlyPercentage, settings } = useStatisticsPage({
