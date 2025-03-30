@@ -4,17 +4,16 @@ import authOptions from '@/app/api/auth/[...nextauth]/options'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SettingsForm from './settings-form'
 import { Card, CardDescription, CardHeader } from '@/components/ui/card'
+import { PageTitle } from '@/components/ui/page-title'
 
 export default async function Settings() {
   const session = await getServerSession(authOptions)
 
   return (
-    <div className="flex flex-col w-full p-10">
-      <h1 className="text-primary-blue font-semibold text-2xl mb-5 text-left">
-        Settings
-      </h1>
+    <div className="flex flex-col w-full p-4 sm:p-10">
+      <PageTitle title="Settings" />
 
-      <Tabs defaultValue="settings" className="w-[500px]">
+      <Tabs defaultValue="settings" className="w-auto sm:w-[500px]">
         <TabsList className="grid grid-cols-2 w-full">
           <TabsTrigger value="settings">Preferences</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>

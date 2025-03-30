@@ -78,19 +78,21 @@ export function TransactionsForm({
   const types: TypesArrayProps[] = [
     {
       title: 'Income',
-      Icon: <FiArrowUpCircle className="mr-1" />,
+      Icon: <FiArrowUpCircle className="mr-1 w-6 h-6 sm:w-4 sm:h-4" />,
       value: 'income',
       color: 'bg-primary-green',
     },
     {
       title: 'Transfer',
-      Icon: <BiTransferAlt className="border-[1px] rounded-full mr-1" />,
+      Icon: (
+        <BiTransferAlt className="border-2 sm:border-[1px] rounded-full mr-1 w-6 h-6 sm:w-4 sm:h-4" />
+      ),
       value: 'transfer',
       color: 'bg-secondary-button',
     },
     {
       title: 'Expense',
-      Icon: <FiArrowDownCircle className="mr-1" />,
+      Icon: <FiArrowDownCircle className="mr-1 w-6 h-6 sm:w-4 sm:h-4" />,
       value: 'expense',
       color: 'bg-primary-red',
     },
@@ -203,13 +205,16 @@ export function TransactionsForm({
   return (
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
-        <Button variant="default" className="">
-          <Plus className="w-4 h-4 mr-2" />
-          Create transaction
+        <Button
+          variant="default"
+          className="rounded-full sm:rounded-md w-12 h-12 sm:w-auto sm:h-auto"
+        >
+          <Plus className="w-4 h-4" />
+          <span className="hidden sm:flex ml-2">Create transaction</span>
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] sm:max-h-min overflow-auto">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Edit' : 'Create'} transaction</DialogTitle>
         </DialogHeader>
@@ -233,7 +238,7 @@ export function TransactionsForm({
                 }}
               >
                 {type.Icon}
-                {type.title}
+                <span className="hidden sm:flex">{type.title}</span>
               </Button>
             ))}
           </div>
@@ -253,7 +258,7 @@ export function TransactionsForm({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4 py-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
             <div className="flex flex-col gap-4">
               <Label htmlFor="description">Description</Label>
               <Input
@@ -414,8 +419,8 @@ export function TransactionsForm({
           </div>
 
           <DialogFooter>
-            <div className="flex flex-row items-center justify-between w-full">
-              <div className="flex items-center gap-2 opacity-60">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center justify-between w-full">
+              <div className="flex items-center justify-start gap-2 opacity-60 w-full sm:w-auto">
                 <Label>Close when finish</Label>
                 <Switch
                   checked={closeWhenCreate}
@@ -423,14 +428,22 @@ export function TransactionsForm({
                 />
               </div>
 
-              <div className="flex items-center gap-2">
-                <Button type="submit" disabled={isSubmitting}>
+              <div className="flex items-center justify-between gap-2 w-full sm:w-auto">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto"
+                >
                   <Send className="w-4 h-4 mr-2" />
                   Send
                 </Button>
 
                 <DialogTrigger asChild>
-                  <Button variant="outline" type="button">
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="w-full sm:w-auto"
+                  >
                     Cancel
                   </Button>
                 </DialogTrigger>

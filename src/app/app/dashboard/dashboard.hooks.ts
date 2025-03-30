@@ -1,4 +1,4 @@
-import { useMemo, ChangeEvent } from 'react'
+import { useMemo, ChangeEvent, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
@@ -15,6 +15,7 @@ import { deleteTransaction } from '@/services/api/delete-transaction'
 
 export const useDashboardPage = ({ token }: { token: string }) => {
   const searchParams = useSearchParams()
+  const [isMobile, setIsMobile] = useState(false)
 
   const today = new Date()
   const currentMonth = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -26,6 +27,14 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     queryKey: ['transactions', month],
     queryFn: () => getTransactions({ query: month, token }),
   })
+
+  useEffect(() => {
+    function isMobile() {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+    }
+
+    isMobile()
+  }, [])
 
   const { data: settings } = useQuery({
     queryKey: ['settings'],
@@ -144,6 +153,7 @@ export const useDashboardPage = ({ token }: { token: string }) => {
   // const test = categorizedTransactions
 
   return {
+    isMobile,
     transactions: transactions ?? [],
     settings: settings ?? settingsPlaceholder,
     accounts: accounts ?? [],

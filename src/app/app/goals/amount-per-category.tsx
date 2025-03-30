@@ -15,17 +15,16 @@ export function AmountPerCategory({ token }: { token: string }) {
 
   return (
     <Card className="col-span-1">
-      <CardHeader className="p-3 sm:px-6 sm:pt-6 sm:pb-8">
+      <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
             Amount per category
           </CardTitle>
-
           <BarChartBig className="h-4 w-4 text-muted-foreground" />
         </div>
       </CardHeader>
 
-      <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+      <CardContent>
         <ul>
           {amountPerCategory.map(
             (data) =>

@@ -27,17 +27,16 @@ export function MonthlyPercentage({ token }: { token: string }) {
 
   return (
     <Card className="col-span-1">
-      <CardHeader className="p-3 sm:px-6 sm:pt-6 sm:pb-8">
+      <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
             Monthly percentage
           </CardTitle>
-
           <PieChartIcon className="h-4 w-4 text-muted-foreground" />
         </div>
       </CardHeader>
 
-      <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+      <CardContent>
         {monthlyPercentage && (
           <ResponsiveContainer width="100%" height={240}>
             <PieChart style={{ fontSize: 12 }}>
@@ -98,16 +97,14 @@ export function MonthlyPercentage({ token }: { token: string }) {
           </ResponsiveContainer>
         )}
 
-        <div className="mt-2 mb-4 sm:mb-5">
-          <h3 className="font-semibold text-lg mb-0 sm:mb-2 text-center">
-            Percentage
-          </h3>
+        <div className="mt-2 mb-5">
+          <h3 className="font-semibold text-lg mb-2 text-center">Percentage</h3>
 
           <div className="grid grid-cols-3">
             {monthlyPercentage.map((item, index) => (
               <div key={index} className="flex flex-col items-center">
                 <p
-                  className="text-xl sm:text-2xl font-semibold"
+                  className="text-2xl font-semibold"
                   style={{
                     color:
                       COLORS[item.type as 'Income' | 'Expenses' | 'Transfers'],
@@ -124,9 +121,7 @@ export function MonthlyPercentage({ token }: { token: string }) {
         </div>
 
         <div className="mt-2">
-          <h3 className="font-semibold text-lg mb-0 sm:mb-2 text-center">
-            Value
-          </h3>
+          <h3 className="font-semibold text-lg mb-2 text-center">Value</h3>
 
           <div className="grid grid-cols-3">
             {monthlyPercentage.map((item, index) => (

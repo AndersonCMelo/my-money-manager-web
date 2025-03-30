@@ -21,25 +21,24 @@ export function AmountPerAccount({ token }: { token: string }) {
 
   return (
     <Card className="col-span-1">
-      <CardHeader className="p-3 sm:px-6 sm:pt-6 sm:pb-8">
+      <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
             Bank account movements
           </CardTitle>
-
           <BarChartBig className="h-4 w-4 text-muted-foreground" />
         </div>
       </CardHeader>
 
-      <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+      <CardContent>
         <Accordion type="multiple" className="w-full">
           {amountPerAccount.map(
             (data, index) =>
               data.amount > 0 && (
                 <AccordionItem key={data.accountId} value={`item-${index + 1}`}>
-                  <AccordionTrigger className="py-3 sm:py-4">
+                  <AccordionTrigger>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-xs text-start text-slate-500">
+                      <span className="text-xs text-center text-slate-500">
                         {data.accountName}:
                       </span>
 

@@ -22,11 +22,12 @@ export default function UsersTable({ token }: { token: string }) {
 
   return (
     <Card>
-      <CardHeader className="p-4 flex flex-row items-baseline justify-between border-b-[1px]">
+      <CardHeader className="px-3 pt-1 pb-2 sm:p-4 flex flex-col sm:flex-row items-baseline justify-between border-b-[1px]">
         <div className="flex items-baseline">
           <CardTitle className="text-primary-blue text-lg">
             List of users
           </CardTitle>
+
           <CardDescription className="text-slate-500 ml-3 text-xs">
             Total: {users.length} {users.length > 1 ? 'users' : 'user'}
           </CardDescription>

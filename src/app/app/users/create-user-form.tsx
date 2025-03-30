@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 import { useUserActions, UsersFormProps } from './users.hooks'
 
@@ -46,7 +47,7 @@ export function CreateUserForm({ token }: ComponentProps) {
         <Button variant="outline">Create user</Button>
       </PopoverTrigger>
 
-      <PopoverContent align="end">
+      <PopoverContent align="end" className="ml-7 sm:ml-0">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4">
             <div className="grid grid-cols-6 items-center gap-4">
@@ -109,8 +110,17 @@ export function CreateUserForm({ token }: ComponentProps) {
                 className="bg-primary-button hover:bg-primary-button/90"
                 disabled={isSubmitting}
               >
-                <Send className="w-4 h-4 mr-2" />
-                Create
+                {isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <LoadingSpinner />
+                    Creating
+                  </div>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Create
+                  </>
+                )}
               </Button>
             </div>
           </div>

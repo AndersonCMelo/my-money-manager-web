@@ -46,7 +46,10 @@ export function CreateCategoryForm({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Create category</Button>
+        <Button variant="outline">
+          <span>Create</span>
+          <span className="hidden sm:block ml-1">category</span>
+        </Button>
       </PopoverTrigger>
 
       <PopoverContent align="end">

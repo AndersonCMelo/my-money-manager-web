@@ -66,3 +66,12 @@ export interface SettingsProps {
   currency: string
   language: string
 }
+
+export interface GoalsProps {
+  id: string
+  categoryId?: string
+  categoryName?: string
+  monthlyGoal: number
+  amountSpent: number
+  percentage: number
+}

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -26,11 +26,13 @@ import { useDashboardPage } from './dashboard.hooks'
 
 type FilterByCategoryProps = {
   token: string
+  preSelectedCategory?: string | null
   onSelectCategory: (categoryId: string | null) => void
 }
 
 export function FilterByCategory({
   token,
+  preSelectedCategory,
   onSelectCategory,
 }: FilterByCategoryProps) {
   const [open, setOpen] = useState(false)
@@ -38,6 +40,14 @@ export function FilterByCategory({
     useState<CategoriesProps | null>(null)
 
   const { categories } = useDashboardPage({ token })
+
+  useEffect(() => {
+    if (preSelectedCategory) {
+      setSelectedCategory(
+        categories.filter((item) => item.id === preSelectedCategory)[0],
+      )
+    }
+  }, [categories, preSelectedCategory])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

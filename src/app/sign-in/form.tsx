@@ -10,6 +10,8 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
+
 import { login } from '@/services/api/login'
 
 const signInForm = z.object({
@@ -29,6 +31,28 @@ export function Form() {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<SignInFormProps>()
+
+  /* async function handleSignIn(data: SignInFormProps) {
+    console.log('handleSignIn')
+
+    const SHEET_ID = '1JrLQc-5FztVIGU3aAGOuiUusGfamJXxTdrq_1QhZXdg' // Pegue da URL da planilha
+    const API_KEY = 'AIzaSyDU-2Dz8sUkgC4Nodg7ezRvYNLMQOSmfHw' // Chave gerada no Google Cloud
+    const RANGE = 'A1:E10' // Ajuste conforme necessário
+    const SHEET_NAME = 'Page1'
+    const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`
+
+    fetch(URL)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data)
+        if (data.values) {
+          console.log('data.values', data.values)
+
+          // setDados(data.values)
+        }
+      })
+      .catch((error) => console.error('Erro ao buscar dados:', error))
+  } */
 
   async function handleSignIn(data: SignInFormProps) {
     const response = await login({
@@ -73,7 +97,7 @@ export function Form() {
       <div className="space-y-2">
         <Label htmlFor="email">Password</Label>
 
-        <div className="flex w-full max-w-sm items-center space-x-2">
+        <div className="flex w-full max-w-sm items-center sm:space-x-2">
           <Input
             id="password"
             type={passwordVisible ? 'text' : 'password'}
@@ -95,7 +119,14 @@ export function Form() {
         className="w-full bg-primary-button hover:bg-secondary-button"
         type="submit"
       >
-        Login
+        {isSubmitting ? (
+          <div className="flex items-center gap-2">
+            <LoadingSpinner />
+            Sending
+          </div>
+        ) : (
+          'Login'
+        )}
       </Button>
     </form>
   )

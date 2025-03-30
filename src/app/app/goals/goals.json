@@ -1,0 +1,74 @@
+[
+  {
+    "id": "01",
+    "categoryId": "9a73a2f7-f64f-4fad-b1dd-6747c0701424",
+    "categoryName": "Arrendamento",
+    "monthlyGoal": 96246,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "02",
+    "categoryId": "2c646d70-a10b-461d-9723-fed16445d74e",
+    "categoryName": "Supermercado",
+    "monthlyGoal": 45000,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "03",
+    "categoryId": "8ead4357-89ed-4aec-96cc-6b58987830c1",
+    "categoryName": "Energia",
+    "monthlyGoal": 5500,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "04",
+    "categoryId": "048f82c2-4456-45af-9419-0a41cc935a88",
+    "categoryName": "Água",
+    "monthlyGoal": 2000,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "05",
+    "categoryId": "5bf7f992-2612-4bf7-9a23-be03682dc0d8",
+    "categoryName": "Comunicação",
+    "monthlyGoal": 6766,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "06",
+    "categoryId": "58ed0e11-9f78-4e9e-b8c8-7629e0be35b0",
+    "categoryName": "Transporte",
+    "monthlyGoal": 8000,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "07",
+    "categoryId": "303d7478-911d-4031-bed4-7747df9a22dc",
+    "categoryName": "Academia",
+    "monthlyGoal": 4500,
+    "amountSpent": 0,
+    "isRecurrent": true
+  },
+  {
+    "id": "08",
+    "categoryId": "c624c0d9-e387-45f8-a2e4-676e6da292c4",
+    "categoryName": "Restaurante",
+    "monthlyGoal": 5000,
+    "amountSpent": 0,
+    "isRecurrent": false
+  },
+  {
+    "id": "09",
+    "categoryId": "9dde3700-94c1-4d7c-96fe-d85f6a126dbc",
+    "categoryName": "Entretenimento",
+    "monthlyGoal": 2000,
+    "amountSpent": 0,
+    "isRecurrent": false
+  }
+]

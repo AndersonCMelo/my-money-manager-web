@@ -35,7 +35,7 @@ export default function AccountsCards({ token }: { token: string }) {
   })
 
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5">
       <Card className="border-dashed hover:border-primary-blue">
         <Dialog>
           <DialogTrigger asChild>
@@ -53,31 +53,36 @@ export default function AccountsCards({ token }: { token: string }) {
 
       {visibleAccounts.map((account) => (
         <Card key={account.id}>
-          <CardHeader className="px-5 pt-5 pb-4 flex items-baseline">
-            <CardDescription className="text-slate-500 font-semibold mb-4">
+          <CardHeader className="px-3 pt-2 pb-2 sm:px-5 sm:pt-5 sm:pb-4 flex items-baseline">
+            <CardDescription className="text-slate-500 font-semibold mb-1 sm:mb-4 text-xs sm:text-sm">
               {account.accountLabel}
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-5 pb-3">
-            <div className="flex items-baseline">
-              <span className="text-primary-blue font-semibold text-[22px]">
+          <CardContent className="px-3 pb-2 sm:px-5 sm:pb-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-baseline">
+              <span className="text-primary-blue font-semibold text-xl sm:text-[22px]">
                 {currencyFormatHelper({
                   currency: settings.currency,
                   value: account.accountBalance!,
                 })}
               </span>
-              <p className="text-slate-400 text-xs ml-2">Balance</p>
+
+              <p className="text-slate-400 text-xs ml-0 sm:ml-2">Balance</p>
             </div>
             <p className="text-xs mt-2 text-slate-400">{account.owner?.name}</p>
           </CardContent>
 
           <Separator />
 
-          <CardFooter className="flex items-center gap-4 px-5 py-3">
+          <CardFooter className="flex items-center justify-between sm:justify-start gap-4 px-3 py-2 sm:px-5 sm:py-3">
             <Dialog>
               <DialogTrigger asChild>
-                <Button type="button" variant="outline" className="px-3 h-8">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="px-3 h-8 w-full sm:w-auto"
+                >
                   Edit
                 </Button>
               </DialogTrigger>
@@ -95,7 +100,7 @@ export default function AccountsCards({ token }: { token: string }) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="border-primary-red text-primary-red px-3 h-8 hover:bg-primary-red hover:text-white"
+                  className="border-primary-red text-primary-red px-3 h-8 hover:bg-primary-red hover:text-white w-full sm:w-auto"
                 >
                   Delete
                 </Button>

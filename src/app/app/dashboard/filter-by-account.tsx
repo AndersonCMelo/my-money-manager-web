@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -25,11 +25,13 @@ import { useDashboardPage } from './dashboard.hooks'
 
 type FilterByAccountProps = {
   token: string
+  preSelectedAccount?: string | null
   onSelectAccount: (accountId: string | null) => void
 }
 
 export function FilterByAccount({
   token,
+  preSelectedAccount,
   onSelectAccount,
 }: FilterByAccountProps) {
   const [open, setOpen] = useState(false)
@@ -40,6 +42,14 @@ export function FilterByAccount({
   const { accounts } = useDashboardPage({
     token,
   })
+
+  useEffect(() => {
+    if (preSelectedAccount) {
+      setSelectedAccount(
+        accounts.filter((item) => item.id === preSelectedAccount)[0],
+      )
+    }
+  }, [accounts, preSelectedAccount])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+// import { Button } from '@/components/ui/button'
 
 import { TransactionTableRow } from './transaction-table-row'
 import { useDashboardPage } from './dashboard.hooks'
@@ -36,7 +37,10 @@ export default function Transactions({ token }: { token: string }) {
             </CardDescription>
           </div>
 
-          <TransactionsForm token={token} isEditing={false} />
+          {/* <Button>Populate table</Button> */}
+          <div className="block sm:block fixed bottom-10 left-1/2 -translate-x-1/2 z-30 sm:relative sm:bottom-auto sm:left-auto sm:translate-x-0">
+            <TransactionsForm token={token} isEditing={false} />
+          </div>
         </div>
       </CardHeader>
 

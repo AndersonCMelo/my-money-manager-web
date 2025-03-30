@@ -12,12 +12,12 @@ export default async function SignIn() {
   }
 
   return (
-    <div className="grid min-h-screen grid-cols-2 antialiased">
+    <div className="sm:grid sm:grid-cols-2 min-h-screen antialiased flex flex-col">
       <BackgroundImage />
 
-      <div className="relative flex flex-col items-center justify-center">
-        <div className="flex w-[380px] flex-col justify-center gap-6">
-          <div className="flex flex-col gap-2">
+      <div className="relative flex flex-col items-center justify-center bg-white sm:rounded-none rounded-3xl sm:mt-0 -mt-5">
+        <div className="flex md:max-w-[380px] max-w-[90vw] w-full flex-col justify-center gap-6 sm:mt-0 mt-4 sm:p-0 p-2">
+          <div className="flex flex-col sm:gap-2 gap-0">
             <h2 className="text-3xl font-bold mb-1 text-primary-green">
               Hello
             </h2>

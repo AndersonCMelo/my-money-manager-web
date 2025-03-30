@@ -40,9 +40,9 @@ export function AccountsFilter({ token }: { token: string }) {
   }
 
   return (
-    <Card className="my-5 p-4">
+    <Card className="my-3 sm:my-5 px-3 py-2 sm:p-4">
       <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold ml-4">Filters:</span>
+        <span className="text-sm font-semibold ml-0 sm:ml-2">Filters:</span>
 
         <FilterByOwner
           token={token}

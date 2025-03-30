@@ -27,6 +27,7 @@ import {
   AccountsFormProps,
   useInputMask,
 } from './accounts.hooks'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 interface ComponentProps {
   token: string
@@ -77,7 +78,7 @@ export default function AccountsForm({
 
   return (
     <DialogContent className="sm:max-w-[425px]">
-      <DialogHeader>
+      <DialogHeader className="flex flex-row items-center justify-start">
         <DialogTitle>{isEditing ? 'Edit' : 'Create'} account</DialogTitle>
       </DialogHeader>
 
@@ -219,10 +220,19 @@ export default function AccountsForm({
           </div>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end gap-2 sm:gap-0">
           <Button type="submit" disabled={isSubmitting}>
-            <Send className="w-4 h-4 mr-2" />
-            Send
+            {isSubmitting ? (
+              <div className="flex items-center gap-2">
+                <LoadingSpinner />
+                Sending
+              </div>
+            ) : (
+              <>
+                <Send className="w-4 h-4 mr-2" />
+                Send
+              </>
+            )}
           </Button>
 
           <DialogTrigger asChild>

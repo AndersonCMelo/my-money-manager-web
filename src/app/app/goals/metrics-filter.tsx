@@ -25,7 +25,7 @@ export function MetricsFilter() {
   }
 
   return (
-    <Card className="mb-3 sm:mb-5 px-3 py-2 sm:p-4">
+    <Card className="mb-5 p-4">
       <MonthSelector onChangeMonth={(month) => handleChangeMonth(month)} />
     </Card>
   )

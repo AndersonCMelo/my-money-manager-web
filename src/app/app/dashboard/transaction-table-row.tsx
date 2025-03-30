@@ -32,7 +32,9 @@ export function TransactionTableRow({
     transfer: 'text-secondary-button',
   }
 
-  const { handleDeleteTransaction } = useTransactionsActions({ token })
+  const { handleDeleteTransaction } = useTransactionsActions({
+    token,
+  })
 
   return (
     <TableRow>

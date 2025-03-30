@@ -59,21 +59,25 @@ export default function BalanceSection({ token }: { token: string }) {
   ]
 
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-5">
       {cards.map((card, index) => (
         <Card key={index}>
-          <CardHeader>
+          <CardHeader className="p-3 sm:p-6">
             <div
-              className={`w-10 h-10 flex items-center justify-center rounded-full ${card.background}`}
+              className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full ${card.background}`}
             >
               <card.Icon className={`${card.color}`} />
             </div>
           </CardHeader>
-          <CardContent>
-            <CardDescription className={`font-semibold mb-2 ${card.color}`}>
+
+          <CardContent className="p-3 sm:p-6 pt-0 sm:pt-6">
+            <CardDescription
+              className={`font-semibold text-xs sm:text-sm mb-1 sm:mb-2  ${card.color}`}
+            >
               {card.description}
             </CardDescription>
-            <CardTitle className={`${card.color}`}>
+
+            <CardTitle className={`${card.color} text-xl sm:text-2xl -my-1`}>
               {currencyFormatHelper({
                 currency: settings.currency,
                 value: card.value,
