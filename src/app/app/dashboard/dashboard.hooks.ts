@@ -223,12 +223,13 @@ export const useTransactionsActions = ({
     },
   })
 
-  const { mutateAsync: deleteTransactionFn } = useMutation({
-    mutationFn: deleteTransaction,
-    onSuccess() {
-      queryClient.invalidateQueries()
-    },
-  })
+  const { mutateAsync: deleteTransactionFn, isPending: isDeleting } =
+    useMutation({
+      mutationFn: deleteTransaction,
+      onSuccess() {
+        queryClient.invalidateQueries()
+      },
+    })
 
   async function handleCreateTransaction({
     data,
@@ -282,5 +283,6 @@ export const useTransactionsActions = ({
   return {
     handleCreateTransaction,
     handleDeleteTransaction,
+    isDeleting,
   }
 }

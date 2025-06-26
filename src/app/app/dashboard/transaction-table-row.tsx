@@ -9,6 +9,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
+
 import { SettingsProps, TransactionsProps } from '@/types'
 
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
@@ -32,7 +34,7 @@ export function TransactionTableRow({
     transfer: 'text-secondary-button',
   }
 
-  const { handleDeleteTransaction } = useTransactionsActions({
+  const { handleDeleteTransaction, isDeleting } = useTransactionsActions({
     token,
   })
 
@@ -81,8 +83,17 @@ export function TransactionTableRow({
               className="text-primary-red"
               onClick={() => handleDeleteTransaction(transaction.id)}
             >
-              <Trash2 className="w-4 h-4 mr-2" />
-              Delete
+              {isDeleting ? (
+                <div className="flex items-center gap-2">
+                  <LoadingSpinner color="border-primary-red" />
+                  Deleting
+                </div>
+              ) : (
+                <>
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
+                </>
+              )}
             </Button>
           </DropdownMenuContent>
         </DropdownMenu>

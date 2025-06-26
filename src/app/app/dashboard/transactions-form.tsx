@@ -30,9 +30,7 @@ import {
   useTransactionsActions,
 } from './dashboard.hooks'
 import { completeTransactionFormHelper } from '@/utils/complete-transaction-form-helper'
-
-// import objects from './transactions.json'
-// import { completeEstabilishment } from '@/utils/complete-estabilishment'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 interface ComponentProps {
   token: string
@@ -214,7 +212,7 @@ export function TransactionsForm({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[80vh] sm:max-h-min overflow-auto">
+      <DialogContent className="max-h-[80vh] sm:max-h-min overflow-auto sm:overflow-visible">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Edit' : 'Create'} transaction</DialogTitle>
         </DialogHeader>
@@ -434,8 +432,17 @@ export function TransactionsForm({
                   disabled={isSubmitting}
                   className="w-full sm:w-auto"
                 >
-                  <Send className="w-4 h-4 mr-2" />
-                  Send
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-2">
+                      <LoadingSpinner />
+                      Sending
+                    </div>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send
+                    </>
+                  )}
                 </Button>
 
                 <DialogTrigger asChild>
