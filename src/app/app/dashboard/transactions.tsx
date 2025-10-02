@@ -36,7 +36,8 @@ export default function Transactions({ token }: { token: string }) {
   useEffect(() => {
     function loadEcaiWidget(language = 'nl') {
       const script = document.createElement('script')
-      script.src = 'https://nice-glacier-096cae503.2.azurestaticapps.net/ecai.widget.js'
+      script.src =
+        'https://nice-glacier-096cae503.2.azurestaticapps.net/ecai.widget.js'
       script.async = true
 
       script.onload = () => {
