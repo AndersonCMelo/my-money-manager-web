@@ -1,4 +1,5 @@
 'use client'
+import { useEffect } from 'react'
 import {
   Table,
   TableBody,
@@ -18,10 +19,37 @@ import { TransactionTableRow } from './transaction-table-row'
 import { useDashboardPage } from './dashboard.hooks'
 import { TransactionsForm } from './transactions-form'
 
+// Add a type declaration for EuroconsumersAI on the window object
+declare global {
+  interface Window {
+    EuroconsumersAI?: {
+      init: (options: { language: string }) => void
+    }
+  }
+}
+
 export default function Transactions({ token }: { token: string }) {
   const { visibleTransactions, settings } = useDashboardPage({
     token,
   })
+
+  useEffect(() => {
+    function loadEcaiWidget(language = 'nl') {
+      const script = document.createElement('script')
+      script.src = 'https://nice-glacier-096cae503.2.azurestaticapps.net/ecai.widget.js'
+      script.async = true
+
+      script.onload = () => {
+        if (window.EuroconsumersAI) {
+          window.EuroconsumersAI.init({ language })
+        }
+      }
+
+      document.body.appendChild(script)
+    }
+
+    loadEcaiWidget('fr')
+  }, [])
 
   return (
     <Card>
