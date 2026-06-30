@@ -1,5 +1,5 @@
 'use client'
-import { Wallet } from 'lucide-react'
+import { CreditCard } from 'lucide-react'
 
 import {
   Card,
@@ -26,10 +26,10 @@ import {
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
 import { useAccountsPage, useAccountsActions } from './accounts.hooks'
-import { AccountsForm } from './accounts-form'
+import { CreditCardsForm } from './credit-cards-form'
 
-export default function AccountsCards({ token }: { token: string }) {
-  const { visibleAccounts, settings, users } = useAccountsPage({ token })
+export function CreditCards({ token }: { token: string }) {
+  const { visibleCreditCards, settings, users } = useAccountsPage({ token })
   const { handleDeleteAccount } = useAccountsActions({
     token,
   })
@@ -40,22 +40,22 @@ export default function AccountsCards({ token }: { token: string }) {
         <Dialog>
           <DialogTrigger asChild>
             <Button className="py-8 flex flex-col items-center justify-center h-full w-full bg-transparent hover:bg-transparent hover:opacity-80">
-              <Wallet className="text-primary-blue mb-1 w-5 h-5" />
+              <CreditCard className="text-primary-blue mb-1 w-5 h-5" />
               <span className="text-primary-blue font-semibold">
-                Add new account
+                Add new credit card
               </span>
             </Button>
           </DialogTrigger>
 
-          <AccountsForm token={token} users={users} isEditing={false} />
+          <CreditCardsForm token={token} users={users} isEditing={false} />
         </Dialog>
       </Card>
 
-      {visibleAccounts.map((account) => (
-        <Card key={account.id}>
+      {visibleCreditCards.map((card) => (
+        <Card key={card.id}>
           <CardHeader className="px-3 pt-2 pb-2 sm:px-5 sm:pt-5 sm:pb-4 flex items-baseline">
             <CardDescription className="text-slate-500 font-semibold mb-1 sm:mb-4 text-xs sm:text-sm">
-              {account.accountLabel}
+              {card.name}
             </CardDescription>
           </CardHeader>
 
@@ -64,13 +64,13 @@ export default function AccountsCards({ token }: { token: string }) {
               <span className="text-primary-blue font-semibold text-xl sm:text-[22px]">
                 {currencyFormatHelper({
                   currency: settings.currency,
-                  value: account.accountBalance!,
+                  value: card.limit!,
                 })}
               </span>
 
-              <p className="text-slate-400 text-xs ml-0 sm:ml-2">Balance</p>
+              <p className="text-slate-400 text-xs ml-0 sm:ml-2">Limit</p>
             </div>
-            <p className="text-xs mt-2 text-slate-400">{account.owner?.name}</p>
+            <p className="text-xs mt-2 text-slate-400">{card.owner?.name}</p>
           </CardContent>
 
           <Separator />
@@ -87,12 +87,12 @@ export default function AccountsCards({ token }: { token: string }) {
                 </Button>
               </DialogTrigger>
 
-              <AccountsForm
+              {/* <CreditCardsForm
                 token={token}
                 users={users}
                 isEditing
-                account={account}
-              />
+                account={card}
+              /> */}
             </Dialog>
 
             <AlertDialog>
@@ -119,7 +119,7 @@ export default function AccountsCards({ token }: { token: string }) {
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     className="bg-primary-red hover:bg-primary-red/90"
-                    onClick={() => handleDeleteAccount(account.id)}
+                    onClick={() => handleDeleteAccount(card.id)}
                   >
                     Delete
                   </AlertDialogAction>

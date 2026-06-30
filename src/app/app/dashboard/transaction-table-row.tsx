@@ -1,5 +1,5 @@
 'use client'
-import { MoreHorizontal, Trash2 } from 'lucide-react'
+import { MoreHorizontal, Trash2, CheckCircle } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { TableCell, TableRow } from '@/components/ui/table'
 import {
@@ -16,6 +16,7 @@ import { SettingsProps, TransactionsProps } from '@/types'
 import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
 import { useTransactionsActions } from './dashboard.hooks'
+import { cn } from '@/lib/utils'
 
 interface TransactionTableRowProps {
   token: string
@@ -32,6 +33,8 @@ export function TransactionTableRow({
     income: 'text-primary-green',
     expense: 'text-primary-red',
     transfer: 'text-secondary-button',
+    credit_expense: '',
+    credit_payment: 'text-primary-red',
   }
 
   const { handleDeleteTransaction, isDeleting } = useTransactionsActions({
@@ -43,13 +46,19 @@ export function TransactionTableRow({
       <TableCell variant="transactions">{transaction.description}</TableCell>
 
       <TableCell
-        className={`text-center font-semibold ${amountStyle[transaction.type]}`}
+        className={cn(
+          `flex items-center gap-1 text-center font-semibold ${amountStyle[transaction.type]}`,
+          transaction.isPaid && 'line-through',
+        )}
         variant="transactions"
       >
         {currencyFormatHelper({
           currency: settings.currency,
           value: transaction.amount,
         })}
+        {transaction.isPaid && (
+          <CheckCircle color="#3ACBA3" size={10} className="mb-3" />
+        )}
       </TableCell>
 
       <TableCell className="text-center" variant="transactions">

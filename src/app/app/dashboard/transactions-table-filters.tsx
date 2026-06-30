@@ -17,6 +17,7 @@ import { currencyFormatHelper } from '@/utils/currency-format-helpers'
 
 import { FilterByCategory } from './filter-by-category'
 import { FilterByAccount } from './filter-by-account'
+import { FilterByCreditCard } from './filter-by-credit-card'
 import { useDashboardPage } from './dashboard.hooks'
 
 export default function TransactionsTableFilter({ token }: { token: string }) {
@@ -70,8 +71,19 @@ export default function TransactionsTableFilter({ token }: { token: string }) {
     }
   }
 
+  const handleSelectCreditCard = (creditCardId: string | null) => {
+    if (creditCardId) {
+      router.push(
+        pathname + '?' + createQueryString('credit-card', creditCardId),
+      )
+    } else {
+      router.push(pathname + '?' + deleteQueryString('credit-card'))
+    }
+  }
+
   const selectedCategory = searchParams.get('category') ?? null
   const selectedAccount = searchParams.get('account') ?? null
+  const selectedCreditCard = searchParams.get('credit-card') ?? null
 
   return (
     <Card className="my-5 p-4">
@@ -121,6 +133,14 @@ export default function TransactionsTableFilter({ token }: { token: string }) {
                     }
                   />
 
+                  <FilterByCreditCard
+                    token={token}
+                    preSelectedCreditCard={selectedCreditCard}
+                    onSelectCreditCard={(creditCardId) =>
+                      handleSelectCreditCard(creditCardId)
+                    }
+                  />
+
                   <Button
                     variant="link"
                     className="p-1 gap-1 text-gray-500"
@@ -158,9 +178,16 @@ export default function TransactionsTableFilter({ token }: { token: string }) {
             token={token}
             onSelectAccount={(accountId) => handleSelectAccount(accountId)}
           />
+
+          <FilterByCreditCard
+            token={token}
+            onSelectCreditCard={(creditCardId) =>
+              handleSelectCreditCard(creditCardId)
+            }
+          />
         </div>
 
-        {(selectedCategory || selectedAccount) && (
+        {(selectedCategory || selectedAccount || selectedCreditCard) && (
           <div className="flex items-start sm:items-center gap-2 w-full sm:w-auto">
             <span className="text-sm  text-slate-500">Filtered amount: </span>
             <span className="text-sm font-semibold text-slate-500">

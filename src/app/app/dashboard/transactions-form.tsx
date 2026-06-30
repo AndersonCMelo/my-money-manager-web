@@ -17,11 +17,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { TransactionsProps } from '@/types'
 
 import { SelectCategory } from './select-category'
 import { SelectAccount } from './select-account'
+import { SelectCreditCard } from './select-credit-card'
 import { DatePicker } from './date-picker'
 
 import {
@@ -40,7 +42,7 @@ interface ComponentProps {
 
 interface TypesArrayProps {
   title: string
-  value: 'income' | 'transfer' | 'expense'
+  value: 'income' | 'transfer' | 'expense' | 'credit_expense' | 'credit_payment'
   Icon?: ReactNode
   color: string
 }
@@ -66,9 +68,8 @@ export function TransactionsForm({
     reset,
   } = useForm<TransactionsFormProps>()
 
-  const [transactionType, setTransactionType] = useState<
-    'income' | 'transfer' | 'expense'
-  >('expense')
+  const [transactionType, setTransactionType] =
+    useState<TypesArrayProps['value']>('expense')
 
   const [opened, setOpened] = useState<boolean>(false)
   const [closeWhenCreate, setCloseWhenCreate] = useState<boolean>(true)
@@ -92,6 +93,18 @@ export function TransactionsForm({
       title: 'Expense',
       Icon: <FiArrowDownCircle className="mr-1 w-6 h-6 sm:w-4 sm:h-4" />,
       value: 'expense',
+      color: 'bg-primary-red',
+    },
+    {
+      title: 'Credit Card',
+      Icon: <FiArrowDownCircle className="mr-1 w-6 h-6 sm:w-4 sm:h-4" />,
+      value: 'credit_expense',
+      color: 'bg-primary-red',
+    },
+    {
+      title: 'Credit payment',
+      Icon: <FiArrowDownCircle className="mr-1 w-6 h-6 sm:w-4 sm:h-4" />,
+      value: 'credit_payment',
       color: 'bg-primary-red',
     },
   ]
@@ -147,59 +160,6 @@ export function TransactionsForm({
     setValue(field, value)
   }
 
-  // Estado para rastrear o índice atual
-  // const [currentIndex, setCurrentIndex] = useState(0)
-
-  /* useEffect(() => {
-    setTransactionType(
-      objects[currentIndex].tipo as 'income' | 'expense' | 'transfer',
-    )
-
-    const description = objects[currentIndex].descricao
-      .replace('COMPRA 5099 ', '')
-      .replace(' CONTACTLESS', '')
-
-    setValue('description', description)
-
-    const amountValue = (objects[currentIndex].valor! * 100).toString()
-
-    const floatValue = parseFloat(amountValue) / 100
-    const floatValueFixed = floatValue.toFixed(2)
-
-    setValue('amount', floatValueFixed)
-
-    if (objects[currentIndex].categoryId !== null) {
-      setValue('categoryId', objects[currentIndex].categoryId!)
-    }
-
-    setValue('estabilishment', completeEstabilishment(description))
-
-    setValue('date', objects[currentIndex].data_de_registro)
-
-    if (objects[currentIndex].tipo === 'transfer') {
-      setValue(
-        'destinationBankAccountId',
-        '1cac373c-a7c4-4af2-ad97-82cd3faaee5c',
-      )
-
-      setValue('estabilishment', '-')
-    } else {
-      setValue('bankAccountId', '1cac373c-a7c4-4af2-ad97-82cd3faaee5c')
-    }
-  }, [currentIndex, setValue]) */
-
-  /* const handleButtonClick = () => {
-    // Execute a ação desejada no objeto atual (por exemplo, exibir uma mensagem)
-    console.log('Ação executada no:', objects[currentIndex])
-
-    // Avance para o próximo objeto, mas não ultrapasse o último objeto
-    if (currentIndex < objects.length - 1) {
-      setCurrentIndex(currentIndex + 1)
-    } else {
-      console.log('Todos os objetos foram processados.')
-    }
-  } */
-
   return (
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
@@ -218,27 +178,32 @@ export function TransactionsForm({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-center gap-2 mb-4">
-            {types.map((type) => (
-              <Button
-                key={type.title}
-                type="button"
-                className={`w-full ${type.color} hover:${type.color}/80 ${transactionType === type.value ? 'opacity-100' : 'opacity-40'}`}
-                onClick={() => {
-                  if (type.value === 'transfer') {
-                    setValue(
-                      'categoryId',
-                      'd05eb0bb-64e3-4e1d-9d67-23e6e5333d56',
-                    )
-                    setValue('estabilishment', '-')
-                  }
-                  setTransactionType(type.value)
-                }}
-              >
-                {type.Icon}
-                <span className="hidden sm:flex">{type.title}</span>
-              </Button>
-            ))}
+          <div className="flex-1 mb-4">
+            <Tabs
+              defaultValue="expense"
+              className="w-auto"
+              // value={transactionType}
+              onValueChange={(value) => {
+                if (value === 'transfer') {
+                  setValue('categoryId', 'd05eb0bb-64e3-4e1d-9d67-23e6e5333d56')
+                  setValue('estabilishment', '-')
+                }
+
+                setTransactionType(value as TypesArrayProps['value'])
+              }}
+            >
+              <TabsList>
+                {types.map((type, index) => (
+                  <TabsTrigger
+                    key={index}
+                    value={type.value}
+                    className="data-[state=active]:bg-primary-blue data-[state=active]:text-white"
+                  >
+                    {type.title}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
           </div>
 
           <div className="flex items-center gap-2">
@@ -270,21 +235,23 @@ export function TransactionsForm({
               />
             </div>
 
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="amount">Amount</Label>
-              <Input
-                id="amount"
-                type="text"
-                defaultValue={
-                  isEditing && transaction
-                    ? (transaction.amount! / 100).toFixed(2)
-                    : undefined
-                }
-                className={errors.amount && 'border-primary-red'}
-                {...register('amount', { required: true })}
-                onChange={(e) => handleChange({ e, field: 'amount' })}
-              />
-            </div>
+            {transactionType !== 'credit_payment' && (
+              <div className="flex flex-col gap-4">
+                <Label htmlFor="amount">Amount</Label>
+                <Input
+                  id="amount"
+                  type="text"
+                  defaultValue={
+                    isEditing && transaction
+                      ? (transaction.amount! / 100).toFixed(2)
+                      : undefined
+                  }
+                  className={errors.amount && 'border-primary-red'}
+                  {...register('amount', { required: true })}
+                  onChange={(e) => handleChange({ e, field: 'amount' })}
+                />
+              </div>
+            )}
 
             <div className="flex flex-col gap-4">
               <Label htmlFor="categoryId">Category</Label>
@@ -327,37 +294,42 @@ export function TransactionsForm({
               />
             </div>
 
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="bankAccountId">
-                {transactionType === 'transfer'
-                  ? 'Source account'
-                  : 'Bank account'}
-              </Label>
-              <Controller
-                name="bankAccountId"
-                control={control}
-                rules={{ required: true }}
-                defaultValue={
-                  isEditing && transaction
-                    ? transaction.bankAccountId
-                    : undefined
-                }
-                render={({ field: { name, value } }) => {
-                  return (
-                    <SelectAccount
-                      token={token}
-                      value={value}
-                      error={!!errors.bankAccountId}
-                      onSelectAccount={(bankAccountId) => {
-                        if (bankAccountId) {
-                          setValue(name, bankAccountId)
-                        }
-                      }}
-                    />
-                  )
-                }}
-              />
-            </div>
+            {(transactionType === 'income' ||
+              transactionType === 'expense' ||
+              transactionType === 'transfer' ||
+              transactionType === 'credit_payment') && (
+              <div className="flex flex-col gap-4">
+                <Label htmlFor="bankAccountId">
+                  {transactionType === 'transfer'
+                    ? 'Source account'
+                    : 'Bank account'}
+                </Label>
+                <Controller
+                  name="bankAccountId"
+                  control={control}
+                  rules={{ required: true }}
+                  defaultValue={
+                    isEditing && transaction
+                      ? transaction.bankAccountId
+                      : undefined
+                  }
+                  render={({ field: { name, value } }) => {
+                    return (
+                      <SelectAccount
+                        token={token}
+                        value={value}
+                        error={!!errors.bankAccountId}
+                        onSelectAccount={(bankAccountId) => {
+                          if (bankAccountId) {
+                            setValue(name, bankAccountId)
+                          }
+                        }}
+                      />
+                    )
+                  }}
+                />
+              </div>
+            )}
 
             {transactionType === 'transfer' && (
               <div className="flex flex-col gap-4">
@@ -387,6 +359,54 @@ export function TransactionsForm({
                       />
                     )
                   }}
+                />
+              </div>
+            )}
+
+            {(transactionType === 'credit_expense' ||
+              transactionType === 'credit_payment') && (
+              <div className="flex flex-col gap-4">
+                <Label htmlFor="destinationBankAccountId">Credit card</Label>
+                <Controller
+                  name="creditCardId"
+                  control={control}
+                  rules={{ required: transactionType === 'credit_expense' }}
+                  defaultValue={
+                    isEditing && transaction
+                      ? transaction.creditCardId
+                      : undefined
+                  }
+                  render={({ field: { name, value } }) => {
+                    return (
+                      <SelectCreditCard
+                        token={token}
+                        value={value}
+                        error={!!errors.creditCardId}
+                        onSelectCreditCard={(creditCardId) => {
+                          if (creditCardId) {
+                            setValue(name, creditCardId)
+                          }
+                        }}
+                      />
+                    )
+                  }}
+                />
+              </div>
+            )}
+
+            {transactionType === 'credit_expense' && (
+              <div className="flex flex-col gap-4">
+                <Label htmlFor="totalInstallments">Total installments</Label>
+                <Input
+                  id="totalInstallments"
+                  type="number"
+                  defaultValue={
+                    isEditing && transaction
+                      ? transaction.totalInstallments
+                      : undefined
+                  }
+                  className={errors.totalInstallments && 'border-primary-red'}
+                  {...register('totalInstallments', { required: true })}
                 />
               </div>
             )}

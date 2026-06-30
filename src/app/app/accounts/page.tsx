@@ -1,10 +1,13 @@
 import { getServerSession } from 'next-auth'
 import authOptions from '@/app/api/auth/[...nextauth]/options'
 
+import { PageTitle } from '@/components/ui/page-title'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+
 import AccountsCards from './accounts-cards'
+import { CreditCards } from './credit-cards'
 import BalanceCard from './balance-card'
 import { AccountsFilter } from './accounts-filter'
-import { PageTitle } from '@/components/ui/page-title'
 
 export default async function Accounts() {
   const session = await getServerSession(authOptions)
@@ -19,9 +22,26 @@ export default async function Accounts() {
         <BalanceCard token={session?.accessToken ?? ''} />
       </div>
 
-      <AccountsFilter token={session?.accessToken ?? ''} />
+      <Tabs defaultValue="accounts" className="w-auto ">
+        <TabsList>
+          <TabsTrigger value="accounts">Accounts</TabsTrigger>
+          <TabsTrigger value="credit-cards">Credit Cards</TabsTrigger>
+        </TabsList>
 
-      <AccountsCards token={session?.accessToken ?? ''} />
+        <TabsContent value="accounts">
+          <div>
+            <AccountsFilter token={session?.accessToken ?? ''} />
+
+            <AccountsCards token={session?.accessToken ?? ''} />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="credit-cards">
+          <div>
+            <CreditCards token={session?.accessToken ?? ''} />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

@@ -7,12 +7,19 @@ export interface CreateTransactionParams {
     description: string | null
     amount: number
     estabilishment: string | null
-    type: 'income' | 'expense' | 'transfer'
+    type:
+      | 'income'
+      | 'expense'
+      | 'transfer'
+      | 'credit_expense'
+      | 'credit_payment'
     essencial: boolean
     date: string
     categoryId: string
-    bankAccountId: string
+    bankAccountId: string | null
     destinationBankAccountId: string | null
+    creditCardId: string | null
+    totalInstallments: number | null
   }
   token: string
 }

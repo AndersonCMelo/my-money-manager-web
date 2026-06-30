@@ -19,12 +19,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { AccountsProps, UsersProps } from '@/types'
+import { CreditCardsProps, UsersProps } from '@/types'
 import { Send } from 'lucide-react'
 
 import {
   useAccountsActions,
-  AccountsFormProps,
+  CreditCardsFormProps,
   useInputMask,
 } from './accounts.hooks'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
@@ -33,16 +33,16 @@ interface ComponentProps {
   token: string
   users: UsersProps[]
   isEditing: boolean
-  account?: AccountsProps
+  creditCard?: CreditCardsProps
 }
 
-export function AccountsForm({
+export function CreditCardsForm({
   token,
   users,
   isEditing = false,
-  account,
+  creditCard,
 }: ComponentProps) {
-  const { handleCreateAccount, handleUpdateAccount } = useAccountsActions({
+  const { handleCreateCreditCard } = useAccountsActions({
     token,
   })
 
@@ -54,13 +54,13 @@ export function AccountsForm({
     formState: { isSubmitting },
     control,
     setValue,
-  } = useForm<AccountsFormProps>()
+  } = useForm<CreditCardsFormProps>()
 
-  async function onSubmit(data: AccountsFormProps) {
-    if (isEditing && account) {
-      await handleUpdateAccount({ id: account!.id, data })
+  async function onSubmit(data: CreditCardsFormProps) {
+    if (isEditing && creditCard) {
+      // await handleUpdateAccount({ id: creditCard!.id, data })
     } else {
-      await handleCreateAccount(data)
+      await handleCreateCreditCard(data)
     }
   }
 
@@ -69,7 +69,7 @@ export function AccountsForm({
     field,
   }: {
     e: ChangeEvent<HTMLInputElement>
-    field: 'accountBalance' | 'openingBalance'
+    field: 'limit'
   }) => {
     const value = handleInputMask(e)
 
@@ -79,71 +79,71 @@ export function AccountsForm({
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader className="flex flex-row items-center justify-start">
-        <DialogTitle>{isEditing ? 'Edit' : 'Create'} account</DialogTitle>
+        <DialogTitle>{isEditing ? 'Edit' : 'Create'} credit card</DialogTitle>
       </DialogHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="bankName" className="text-right">
-              Bank name
+              Name
             </Label>
             <Input
-              id="bankName"
-              defaultValue={isEditing && account ? account.bankName : undefined}
+              id="name"
+              defaultValue={
+                isEditing && creditCard ? creditCard.name : undefined
+              }
               className="col-span-3"
-              {...register('bankName', { required: true })}
+              {...register('name', { required: true })}
             />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="accountLabel" className="text-right">
-              Account description
+              Limit
             </Label>
             <Input
-              id="accountLabel"
+              id="limit"
               defaultValue={
-                isEditing && account ? account.accountLabel : undefined
+                isEditing && creditCard ? creditCard.limit : undefined
               }
               className="col-span-3"
-              {...register('accountLabel', { required: false })}
+              {...register('limit', { required: false })}
+              onChange={(e) => handleChange({ e, field: 'limit' })}
             />
           </div>
 
-          {isEditing && (
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="openingBalance" className="text-right">
-                Initial balance
-              </Label>
-              <Input
-                id="openingBalance"
-                defaultValue={
-                  isEditing && account
-                    ? (account.openingBalance! / 100).toFixed(2)
-                    : undefined
-                }
-                className="col-span-3"
-                {...register('openingBalance', { required: false })}
-                onChange={(e) => handleChange({ e, field: 'openingBalance' })}
-              />
-            </div>
-          )}
-
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="accountBalance" className="text-right">
-              Account balance
+              Closing Day
             </Label>
             <Input
-              id="accountBalance"
+              id="closingDay"
               type="text"
               defaultValue={
-                isEditing && account
-                  ? (account.accountBalance! / 100).toFixed(2)
+                isEditing && creditCard
+                  ? (creditCard.closingDay! / 100).toFixed(2)
                   : undefined
               }
               className="col-span-3"
-              {...register('accountBalance', { required: false })}
-              onChange={(e) => handleChange({ e, field: 'accountBalance' })}
+              {...register('closingDay', { required: false })}
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="accountBalance" className="text-right">
+              Due Day
+            </Label>
+            <Input
+              id="dueDay"
+              type="text"
+              defaultValue={
+                isEditing && creditCard
+                  ? (creditCard.dueDay! / 100).toFixed(2)
+                  : undefined
+              }
+              className="col-span-3"
+              {...register('dueDay', { required: false })}
             />
           </div>
 
@@ -156,7 +156,9 @@ export function AccountsForm({
               name="ownerId"
               control={control}
               rules={{ required: true }}
-              defaultValue={isEditing && account ? account.ownerId : undefined}
+              defaultValue={
+                isEditing && creditCard ? creditCard.ownerId : undefined
+              }
               render={({ field: { name, onChange, value, disabled } }) => {
                 return (
                   <Select
@@ -174,44 +176,6 @@ export function AccountsForm({
                           {user.name}
                         </SelectItem>
                       ))}
-                    </SelectContent>
-                  </Select>
-                )
-              }}
-            />
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="type" className="text-right">
-              Type
-            </Label>
-
-            <Controller
-              name="type"
-              control={control}
-              rules={{ required: true }}
-              defaultValue={isEditing && account ? account.type : undefined}
-              render={({ field: { name, onChange, value, disabled } }) => {
-                return (
-                  <Select
-                    name={name}
-                    onValueChange={onChange}
-                    value={value}
-                    disabled={disabled}
-                  >
-                    <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Select a type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="checking_account">
-                        Checking account
-                      </SelectItem>
-                      <SelectItem value="saving_account">
-                        Saving account
-                      </SelectItem>
-                      <SelectItem value="investiments">Investiments</SelectItem>
-                      <SelectItem value="cash">Cash</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 )

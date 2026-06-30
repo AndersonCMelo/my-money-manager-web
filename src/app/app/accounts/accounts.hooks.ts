@@ -10,6 +10,8 @@ import { getUsers } from '@/services/api/get-users'
 import { createAccount } from '@/services/api/create-account'
 import { updateAccount } from '@/services/api/update-account'
 import { deleteAccount } from '@/services/api/delete-account'
+import { getCreditCards } from '@/services/api/get-credit-cards'
+import { createCreditCard } from '@/services/api/create-credit-card'
 
 export const useAccountsPage = ({ token }: { token: string }) => {
   const searchParams = useSearchParams()
@@ -28,6 +30,11 @@ export const useAccountsPage = ({ token }: { token: string }) => {
   const { data: accounts } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts({ token }),
+  })
+
+  const { data: creditCards } = useQuery({
+    queryKey: ['credit_cards'],
+    queryFn: () => getCreditCards({ token }),
   })
 
   const { data: users } = useQuery({
@@ -67,11 +74,31 @@ export const useAccountsPage = ({ token }: { token: string }) => {
     }
   }, [accounts, selectedOwner])
 
+  console.log('creditCards', creditCards)
+
+  const visibleCreditCards = useMemo(() => {
+    if (creditCards) {
+      if (selectedOwner) {
+        const filteredCreditCards = creditCards.filter(
+          (account) => account.ownerId === selectedOwner,
+        )
+
+        return filteredCreditCards.sort((a, b) => b.limit! - a.limit!)
+      } else {
+        // return creditCards.sort((a, b) => b.limit! - a.limit!)
+        return creditCards
+      }
+    } else {
+      return []
+    }
+  }, [creditCards, selectedOwner])
+
   return {
     settings: settings ?? settingsPlaceholder,
     accounts: accounts ?? [],
     users: users ?? [],
     visibleAccounts: visibleAccounts ?? [],
+    visibleCreditCards: visibleCreditCards ?? [],
     balance,
   }
 }
@@ -104,12 +131,27 @@ const accountsForm = z.object({
 
 export type AccountsFormProps = z.infer<typeof accountsForm>
 
+const creditCardsForm = z.object({
+  name: z.string(),
+  limit: z.string(),
+  closingDay: z.string(),
+  dueDay: z.string(),
+  color: z.string().nullable().optional(),
+  ownerId: z.string(),
+})
+
+export type CreditCardsFormProps = z.infer<typeof creditCardsForm>
+
 interface UseAccountsActionsProps {
   token: string
 }
 
 export const useAccountsActions = ({ token }: UseAccountsActionsProps) => {
   const queryClient = useQueryClient()
+
+  // -------------------------------------------
+  // Bank Account
+  // -------------------------------------------
 
   const { mutateAsync: createAccountFn } = useMutation({
     mutationFn: createAccount,
@@ -205,9 +247,46 @@ export const useAccountsActions = ({ token }: UseAccountsActionsProps) => {
     }
   }
 
+  // -------------------------------------------
+  // Credit Card
+  // -------------------------------------------
+
+  const { mutateAsync: createCreditCardFn } = useMutation({
+    mutationFn: createCreditCard,
+    onSuccess() {
+      queryClient.invalidateQueries()
+    },
+  })
+
+  async function handleCreateCreditCard(data: CreditCardsFormProps) {
+    try {
+      await createCreditCardFn({
+        body: {
+          name: data.name,
+          limit: Number(data.limit) * 100,
+          closingDay: Number(data.closingDay),
+          dueDay: Number(data.dueDay),
+          ownerId: data.ownerId,
+        },
+        token,
+      })
+
+      toast.success('Credit card created successfully')
+    } catch (error) {
+      // @ts-ignore
+      if (error.response?.data) {
+        // @ts-ignore
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
+  }
+
   return {
     handleCreateAccount,
     handleUpdateAccount,
     handleDeleteAccount,
+    handleCreateCreditCard,
   }
 }

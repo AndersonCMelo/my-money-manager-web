@@ -39,7 +39,7 @@ export interface TransactionsProps {
   category: CategoriesProps
   categoryId?: string
   estabilishment: string
-  type: 'income' | 'expense' | 'transfer'
+  type: 'income' | 'expense' | 'transfer' | 'credit_expense' | 'credit_payment'
   essencial?: boolean
   date: string
   bankAccount: AccountsProps
@@ -47,6 +47,10 @@ export interface TransactionsProps {
   destinationBankAccountId?: string
   created_at: Date
   updated_at: Date
+
+  creditCardId?: string
+  totalInstallments?: string
+  isPaid?: boolean | null
 }
 
 export interface BalanceProps {
@@ -75,4 +79,18 @@ export interface GoalsProps {
   amountSpent: number | undefined
   percentage: number
   isRecurrent?: boolean
+}
+
+export interface CreditCardsProps {
+  id: string
+  name: string
+  limit: number
+  closingDay: number
+  dueDay: number
+  color?: string
+  ownerId: string
+  owner?: UsersProps
+  transactions: TransactionsProps[]
+  created_at: Date
+  updated_at: Date
 }

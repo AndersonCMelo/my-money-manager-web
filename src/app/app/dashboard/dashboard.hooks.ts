@@ -10,6 +10,7 @@ import { getAccounts } from '@/services/api/get-accounts'
 import { getCategories } from '@/services/api/get-categories'
 import { createTransaction } from '@/services/api/create-transaction'
 import { deleteTransaction } from '@/services/api/delete-transaction'
+import { getCreditCards } from '@/services/api/get-credit-cards'
 
 // import { categorizedTransactions } from '@/utils/complete-with-ia'
 
@@ -58,6 +59,11 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     queryFn: () => getAccounts({ token }),
   })
 
+  const { data: creditCards } = useQuery({
+    queryKey: ['credit_cards'],
+    queryFn: () => getCreditCards({ token }),
+  })
+
   let balance = 0
 
   if (accounts) {
@@ -72,24 +78,33 @@ export const useDashboardPage = ({ token }: { token: string }) => {
 
   const selectedCategory = searchParams.get('category') ?? null
   const selectedAccount = searchParams.get('account') ?? null
+  const selectedCreditCard = searchParams.get('credit-card') ?? null
 
   const visibleTransactions = useMemo(() => {
     if (transactions) {
-      if (!selectedCategory && !selectedAccount) {
+      if (!selectedCategory && !selectedAccount && !selectedCreditCard) {
         return transactions
-      } else if (selectedCategory && !selectedAccount) {
+      } else if (selectedCategory && !selectedAccount && !selectedCreditCard) {
         const filteredTransactions = transactions.filter(
           (transaction) => transaction.categoryId === selectedCategory,
         )
 
         return filteredTransactions
-      } else if (!selectedCategory && selectedAccount) {
+      } else if (!selectedCategory && selectedAccount && !selectedCreditCard) {
         const filteredTransactions = transactions.filter(
           (transaction) => transaction.bankAccountId === selectedAccount,
         )
 
         return filteredTransactions
-      } else if (selectedCategory && selectedAccount) {
+      } else if (!selectedCategory && !selectedAccount && selectedCreditCard) {
+        const filteredTransactions = transactions.filter(
+          (transaction) =>
+            transaction.creditCardId === selectedCreditCard &&
+            transaction.type === 'credit_expense',
+        )
+
+        return filteredTransactions
+      } else if (selectedCategory && selectedAccount && !selectedCreditCard) {
         const filteredTransactions = transactions.filter(
           (transaction) =>
             transaction.categoryId === selectedCategory &&
@@ -97,11 +112,36 @@ export const useDashboardPage = ({ token }: { token: string }) => {
         )
 
         return filteredTransactions
+      } else if (selectedCategory && !selectedAccount && selectedCreditCard) {
+        const filteredTransactions = transactions.filter(
+          (transaction) =>
+            transaction.categoryId === selectedCategory &&
+            transaction.creditCardId === selectedCreditCard,
+        )
+
+        return filteredTransactions
+      } else if (!selectedCategory && selectedAccount && selectedCreditCard) {
+        const filteredTransactions = transactions.filter(
+          (transaction) =>
+            transaction.bankAccountId === selectedAccount &&
+            transaction.creditCardId === selectedCreditCard,
+        )
+
+        return filteredTransactions
+      } else if (selectedCategory && selectedAccount && selectedCreditCard) {
+        const filteredTransactions = transactions.filter(
+          (transaction) =>
+            transaction.categoryId === selectedCategory &&
+            transaction.bankAccountId === selectedAccount &&
+            transaction.creditCardId === selectedCreditCard,
+        )
+
+        return filteredTransactions
       }
     } else {
       return []
     }
-  }, [transactions, selectedCategory, selectedAccount])
+  }, [transactions, selectedCategory, selectedAccount, selectedCreditCard])
 
   const monthlyIncome = useMemo(() => {
     if (transactions) {
@@ -125,7 +165,10 @@ export const useDashboardPage = ({ token }: { token: string }) => {
       const sumWithInitial = transactions.reduce(
         (accumulator, currentValue) =>
           accumulator +
-          (currentValue.type === 'expense' ? Number(currentValue.amount!) : 0),
+          (currentValue.type === 'expense' ? Number(currentValue.amount!) : 0) +
+          (currentValue.type === 'credit_payment'
+            ? Number(currentValue.amount!)
+            : 0),
         initialValue,
       )
 
@@ -157,6 +200,7 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     transactions: transactions ?? [],
     settings: settings ?? settingsPlaceholder,
     accounts: accounts ?? [],
+    creditCards: creditCards ?? [],
     categories: categories ?? [],
     balance,
     monthlyIncome,
@@ -183,13 +227,15 @@ export const useInputMask = () => {
   return { handleInputMask }
 }
 
-enum TransactionType {
+/* enum TransactionType {
   Income = 'income',
   Expense = 'expense',
   Transfer = 'transfer',
-}
+  CreditExpense = 'credit_expense',
+  CreditPayment = 'credit_payment',
+} */
 
-const transactionsForm = z.object({
+/* const transactionsForm = z.object({
   description: z.string().nullable(),
   amount: z.string(),
   estabilishment: z.string().nullable(),
@@ -203,6 +249,60 @@ const transactionsForm = z.object({
   categoryId: z.string(),
   bankAccountId: z.string(),
   destinationBankAccountId: z.string().nullable(),
+})
+
+export type TransactionsFormProps = z.infer<typeof transactionsForm> */
+
+/* const baseFields = z.object({
+  description: z.string().nullable(),
+  amount: z.string(),
+  estabilishment: z.string().nullable(),
+  essencial: z.boolean().default(true),
+  date: z.string(),
+  categoryId: z.string(),
+  bankAccountId: z.string().nullable(),
+  destinationBankAccountId: z.string().nullable(),
+  creditCardId: z.string().nullable(),
+  totalInstallments: z.string().nullable(),
+}) */
+
+/* const incomeSchema = baseFields.extend({
+  type: z.literal(TransactionType.Income),
+  bankAccountId: z.string(),
+  destinationBankAccountId: z.string().nullable(),
+}) */
+
+/* const expenseSchema = baseFields.extend({
+  type: z.literal(TransactionType.Expense),
+  bankAccountId: z.string(),
+  destinationBankAccountId: z.string().nullable(),
+}) */
+
+/* const transferSchema = baseFields.extend({
+  type: z.literal(TransactionType.Transfer),
+  bankAccountId: z.string(),
+  destinationBankAccountId: z.string(),
+}) */
+
+/* const creditExpenseSchema = baseFields.extend({
+  type: z.literal(TransactionType.CreditExpense),
+
+  // new required fields
+  creditCardId: z.string(),
+  totalInstallments: z.string(),
+}) */
+
+const transactionsForm = z.object({
+  description: z.string().nullable(),
+  amount: z.string(),
+  estabilishment: z.string().nullable(),
+  essencial: z.boolean().default(true),
+  date: z.string(),
+  categoryId: z.string(),
+  bankAccountId: z.string().nullable(),
+  destinationBankAccountId: z.string().nullable(),
+  creditCardId: z.string().nullable(),
+  totalInstallments: z.string().nullable(),
 })
 
 export type TransactionsFormProps = z.infer<typeof transactionsForm>
@@ -236,7 +336,12 @@ export const useTransactionsActions = ({
     type,
   }: {
     data: TransactionsFormProps
-    type: 'income' | 'transfer' | 'expense'
+    type:
+      | 'income'
+      | 'transfer'
+      | 'expense'
+      | 'credit_expense'
+      | 'credit_payment'
   }) {
     try {
       await createTransactionFn({
@@ -248,8 +353,12 @@ export const useTransactionsActions = ({
           essencial: data.essencial,
           date: data.date,
           categoryId: data.categoryId,
-          bankAccountId: data.bankAccountId,
+          bankAccountId: data.bankAccountId ?? null,
           destinationBankAccountId: data.destinationBankAccountId ?? null,
+          creditCardId: data.creditCardId ?? null,
+          totalInstallments: data.totalInstallments
+            ? Number(data.totalInstallments)
+            : null,
         },
         token,
       })
