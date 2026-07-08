@@ -43,7 +43,14 @@ export function TransactionTableRow({
 
   return (
     <TableRow>
-      <TableCell variant="transactions">{transaction.description}</TableCell>
+      <TableCell variant="transactions">
+        {transaction.description}{' '}
+        <span className="text-[10px]">
+          {transaction.type === 'credit_expense' &&
+            transaction.installmentNumber! > 1 &&
+            `${transaction.installmentNumber}/${transaction.totalInstallments}`}
+        </span>
+      </TableCell>
 
       <TableCell
         className={cn(

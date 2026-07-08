@@ -49,7 +49,9 @@ export interface TransactionsProps {
   updated_at: Date
 
   creditCardId?: string
-  totalInstallments?: string
+  installmentGroupId?: string
+  totalInstallments?: number
+  installmentNumber?: number
   isPaid?: boolean | null
 }
 
