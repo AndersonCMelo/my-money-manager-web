@@ -18,12 +18,19 @@ type DatePickerProps = {
   onSelectDate: (date: string) => void
 }
 
+function parseLocalDate(date: Date | string) {
+  if (date instanceof Date) return date
+
+  const [year, month, day] = date.slice(0, 10).split('-').map(Number)
+  return new Date(year, month - 1, day)
+}
+
 export function DatePicker({
   date,
   error = false,
   onSelectDate,
 }: DatePickerProps) {
-  const formatedDate = new Date(date)
+  const formatedDate = date ? parseLocalDate(date) : undefined
 
   const [opened, setOpened] = useState<boolean>(false)
 
@@ -50,7 +57,11 @@ export function DatePicker({
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          {formatedDate ? (
+            format(formatedDate, 'PPP')
+          ) : (
+            <span>Pick a date</span>
+          )}
         </Button>
       </PopoverTrigger>
 
