@@ -17,6 +17,7 @@ export default async function Dashboard() {
       <BalanceSection token={session?.accessToken ?? ''} />
 
       <TransactionsTableFilter token={session?.accessToken ?? ''} />
+      {/* <TransactionsFilters token={session?.accessToken ?? ''} /> */}
 
       <Transactions token={session?.accessToken ?? ''} />
     </div>

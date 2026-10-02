@@ -79,8 +79,10 @@ export const useDashboardPage = ({ token }: { token: string }) => {
   const selectedCategory = searchParams.get('category') ?? null
   const selectedAccount = searchParams.get('account') ?? null
   const selectedCreditCard = searchParams.get('credit-card') ?? null
+  const selectedTypes = searchParams.get('type') ?? null
+  const hideCreditExpense = searchParams.get('hide-credit-expense') === 'true'
 
-  const visibleTransactions = useMemo(() => {
+  const filteredTransactions = useMemo(() => {
     if (transactions) {
       if (!selectedCategory && !selectedAccount && !selectedCreditCard) {
         return transactions
@@ -143,6 +145,17 @@ export const useDashboardPage = ({ token }: { token: string }) => {
     }
   }, [transactions, selectedCategory, selectedAccount, selectedCreditCard])
 
+  const visibleTransactions = useMemo(
+    () =>
+      (filteredTransactions ?? []).filter(
+        (transaction) =>
+          (!selectedTypes ||
+            selectedTypes.split(',').includes(transaction.type)) &&
+          (!hideCreditExpense || transaction.type !== 'credit_expense'),
+      ),
+    [filteredTransactions, selectedTypes, hideCreditExpense],
+  )
+
   const monthlyIncome = useMemo(() => {
     if (transactions) {
       const initialValue = 0
@@ -171,6 +184,8 @@ export const useDashboardPage = ({ token }: { token: string }) => {
             : 0),
         initialValue,
       )
+
+      console.log('sumWithInitial', sumWithInitial)
 
       return sumWithInitial
     } else {
